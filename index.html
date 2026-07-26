@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events and Probability</title>
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.5/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.5/dist/theme/night.css" id="theme">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ── Base ───────────────────────────────────────────── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a1a;
+      overflow: hidden;
+    }
+
+    .reveal {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: -0.02em;
+    }
+
+    .reveal h1 { font-size: 2.6em; }
+    .reveal h2 { font-size: 1.5em; }
+    .reveal h3 { font-size: 1.1em; }
+
+    .reveal .slides section {
+      padding: 0.8em 1.5em;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      max-height: 100vh;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.15) transparent;
+    }
+
+    .reveal .slides section::-webkit-scrollbar {
+      width: 4px;
+    }
+    .reveal .slides section::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .reveal .slides section::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+    }
+
+    .reveal p, .reveal li {
+      font-size: 0.78em;
+      line-height: 1.5;
+    }
+
+    /* ── Animated Floating Particles ────────────────────── */
+    .particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.2; }
+      90%  { opacity: 0.2; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ── Slide-specific Backgrounds ──────────────────────── */
+    .slide-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .slide-bg .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.06;
+    }
+
+    .slide-bg .symbol {
+      position: absolute;
+      font-size: 12em;
+      font-weight: 800;
+      opacity: 0.04;
+      color: #fff;
+      user-select: none;
+      transform: translate(-50%, -50%);
+    }
+
+    .slide-bg .accent-stripe {
+      position: absolute;
+      width: 200%;
+      height: 2px;
+      transform: rotate(-15deg);
+      opacity: 0.08;
+    }
+
+    /* ── Content Styles ──────────────────────────────────── */
+    .slide-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-badge {
+      display: inline-block;
+      padding: 0.2em 0.8em;
+      border-radius: 100px;
+      font-size: 0.55em;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.4em;
+    }
+
+    .badge-blue   { background: rgba(69,123,157,0.3); color: #a8d8ea; }
+    .badge-orange { background: rgba(231,111,81,0.3); color: #f5a261; }
+    .badge-green  { background: rgba(42,157,143,0.3); color: #80cbc4; }
+    .badge-gold   { background: rgba(245,166,35,0.3); color: #f5c842; }
+    .badge-red    { background: rgba(233,69,96,0.3); color: #f48fb1; }
+
+    .card-grid {
+      display: grid;
+      gap: 0.6em;
+      margin-top: 0.5em;
+    }
+
+    .card-grid-2 { grid-template-columns: 1fr 1fr; }
+    .card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 0.7em 1em;
+      text-align: left;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .card .icon {
+      font-size: 1.4em;
+      margin-bottom: 0.4em;
+    }
+
+    .card h4 {
+      font-size: 0.85em;
+      font-weight: 700;
+      margin-bottom: 0.15em;
+    }
+
+    .card p, .card li {
+      font-size: 0.72em;
+      opacity: 0.8;
+      line-height: 1.45;
+    }
+
+    /* ── Formula Box ─────────────────────────────────────── */
+    .formula-box {
+      display: inline-block;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 0.3em 0.8em;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75em;
+      color: #a8d8ea;
+      margin: 0.1em 0;
+    }
+
+    .answer-box {
+      display: inline-block;
+      background: rgba(233,69,96,0.15);
+      border: 1px solid rgba(233,69,96,0.4);
+      border-radius: 8px;
+      padding: 0.3em 0.8em;
+      font-weight: 700;
+      font-size: 0.8em;
+      color: #f48fb1;
+      margin-top: 0.3em;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.15em 0.8em;
+      border-radius: 6px;
+      font-size: 0.7em;
+      font-weight: 600;
+      margin-right: 0.4em;
+      margin-bottom: 0.3em;
+    }
+
+    .tag-blue   { background: rgba(69,123,157,0.3); color: #a8d8ea; }
+    .tag-orange { background: rgba(231,111,81,0.3); color: #f5a261; }
+    .tag-green  { background: rgba(42,157,143,0.3); color: #80cbc4; }
+    .tag-gold   { background: rgba(245,166,35,0.3); color: #f5c842; }
+
+    .left-align {
+      text-align: left;
+    }
+
+    .step {
+      margin: 0.4em 0;
+      padding-left: 0.8em;
+      border-left: 3px solid rgba(233,69,96,0.5);
+    }
+
+    .highlight {
+      color: #f48fb1;
+      font-weight: 600;
+    }
+
+    .q-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: rgba(233,69,96,0.2);
+      border-radius: 50%;
+      font-size: 0.8em;
+      font-weight: 700;
+      margin-right: 0.6em;
+      color: #f48fb1;
+    }
+
+    /* ── Title Slide ─────────────────────────────────────── */
+    .title-slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+    }
+
+    .title-slide .title-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6em 1.5em;
+      margin-top: 2em;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .title-slide h1 {
+      font-size: 3.2em;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 30%, #a8d8ea 70%, #f48fb1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.3em;
+    }
+
+    .title-slide .subtitle {
+      font-size: 1.2em;
+      opacity: 0.6;
+      font-weight: 300;
+    }
+
+    .title-slide .divider {
+      width: 80px;
+      height: 3px;
+      background: rgba(233,69,96,0.6);
+      margin: 1.5em auto;
+      border-radius: 2px;
+    }
+
+    .title-slide .footer-text {
+      font-size: 0.7em;
+      opacity: 0.4;
+      margin-top: 4em;
+    }
+
+    .course-label {
+      display: inline-block;
+      padding: 0.2em 1.2em;
+      border: 1px solid rgba(168,216,234,0.3);
+      border-radius: 100px;
+      font-size: 0.7em;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: #a8d8ea;
+      margin-bottom: 0.8em;
+      text-transform: uppercase;
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 130px;
+    }
+
+    .detail-label {
+      font-size: 0.55em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #f48fb1;
+      margin-bottom: 0.2em;
+    }
+
+    .detail-value {
+      font-size: 0.65em;
+      opacity: 0.7;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* ── End Slide ───────────────────────────────────────── */
+    .end-slide h1 {
+      font-size: 3em;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #f48fb1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .end-slide .divider {
+      width: 60px;
+      height: 2px;
+      background: rgba(233,69,96,0.5);
+      margin: 1.5em auto;
+    }
+
+    .end-slide p {
+      opacity: 0.6;
+    }
+
+    /* ── SVG Diagrams ─────────────────────────────────────────────── */
+    .diagram-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0.4em;
+    }
+
+    .diagram-box svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .venn-label {
+      font-size: 0.6em;
+      fill: rgba(255,255,255,0.7);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .venn-label-bright {
+      font-size: 0.6em;
+      fill: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .prob-scale {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 0.8em;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .prob-scale .segment {
+      flex: 1;
+      padding: 0.2em 0;
+      text-align: center;
+      font-size: 0.55em;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .prob-scale .segment:first-child { border-radius: 6px 0 0 6px; }
+    .prob-scale .segment:last-child { border-radius: 0 6px 6px 0; }
+
+    .flowchart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3em;
+      margin-top: 0.5em;
+      width: 100%;
+    }
+
+    .flowchart .row {
+      display: flex;
+      gap: 0.5em;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .flowchart .node {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 0.3em 0.7em;
+      font-size: 0.6em;
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      min-width: 80px;
+    }
+
+    .flowchart .node.highlight-blue { border-color: rgba(69,123,157,0.5); background: rgba(69,123,157,0.12); }
+    .flowchart .node.highlight-green { border-color: rgba(42,157,143,0.5); background: rgba(42,157,143,0.12); }
+    .flowchart .node.highlight-orange { border-color: rgba(231,111,81,0.5); background: rgba(231,111,81,0.12); }
+    .flowchart .node.highlight-gold { border-color: rgba(245,166,35,0.5); background: rgba(245,166,35,0.12); }
+
+    .flowchart .arrow {
+      color: rgba(255,255,255,0.25);
+      font-size: 0.6em;
+    }
+
+    .tree-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 0.3em;
+      width: 100%;
+    }
+
+    .tree-row {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      width: 100%;
+    }
+
+    .tree-node {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 0.2em 0.6em;
+      font-size: 0.55em;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      min-width: 50px;
+    }
+
+    .tree-node.root { border-color: rgba(233,69,96,0.4); }
+    .tree-node.branch { border-color: rgba(69,123,157,0.4); }
+    .tree-node.leaf { border-color: rgba(42,157,143,0.4); }
+
+    .tree-line {
+      color: rgba(255,255,255,0.15);
+      font-size: 0.5em;
+      text-align: center;
+    }
+
+    /* ── Responsive ───────────────────────────────────────────────── */
+
+    /* Tablet (768px–1024px) */
+    @media (max-width: 1024px) {
+      .reveal h1 { font-size: 2em; }
+      .reveal h2 { font-size: 1.3em; }
+      .reveal h3 { font-size: 1em; }
+      .reveal p, .reveal li { font-size: 0.72em; }
+      .reveal .slides section { padding: 0.6em 1em; }
+      .card-grid-2, .card-grid-3 { grid-template-columns: 1fr 1fr; }
+      .card { padding: 0.5em 0.7em; }
+      .card h4 { font-size: 0.78em; }
+      .card p, .card li { font-size: 0.68em; }
+      .section-badge { font-size: 0.5em; margin-bottom: 0.3em; }
+      .formula-box { font-size: 0.68em; padding: 0.2em 0.6em; }
+      .title-slide h1 { font-size: 2.8em; }
+      .end-slide h1 { font-size: 2.5em; }
+      .step { margin: 0.25em 0; padding-left: 0.6em; }
+      .q-num { width: 24px; height: 24px; font-size: 0.7em; }
+      .slide-bg .symbol { font-size: 8em; }
+      .slide-bg .circle { opacity: 0.04; }
+      .title-slide .title-details { gap: 0.5em 1.2em; margin-top: 1.5em; }
+      .detail-item { min-width: 110px; }
+      .detail-label { font-size: 0.5em; }
+      .detail-value { font-size: 0.6em; }
+    }
+
+    /* Phone (<768px) */
+    @media (max-width: 768px) {
+      .reveal h1 { font-size: 1.6em; }
+      .reveal h2 { font-size: 1.1em; }
+      .reveal h3 { font-size: 0.9em; }
+      .reveal p, .reveal li { font-size: 0.65em; line-height: 1.4; }
+      .reveal .slides section { padding: 0.4em 0.7em; }
+      .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
+      .card-grid { gap: 0.4em; margin-top: 0.3em; }
+      .card { padding: 0.4em 0.6em; border-radius: 8px; }
+      .card h4 { font-size: 0.72em; margin-bottom: 0.1em; }
+      .card p, .card li { font-size: 0.62em; }
+      .card .icon { font-size: 1em; margin-bottom: 0.2em; }
+      .card:hover { transform: none; }
+      .section-badge { font-size: 0.45em; padding: 0.15em 0.6em; margin-bottom: 0.2em; }
+      .formula-box { font-size: 0.6em; padding: 0.15em 0.5em; border-radius: 6px; }
+      .answer-box { font-size: 0.65em; padding: 0.2em 0.6em; border-radius: 6px; }
+      .title-slide h1 { font-size: 2em; }
+      .title-slide .subtitle { font-size: 0.9em; }
+      .title-slide .divider { width: 50px; margin: 0.8em auto; }
+      .title-slide .footer-text { font-size: 0.55em; margin-top: 2em; }
+      .course-label { font-size: 0.5em; padding: 0.15em 0.8em; }
+      .title-slide .title-details { gap: 0.4em 1em; margin-top: 1.2em; }
+      .detail-item { min-width: 100px; }
+      .detail-label { font-size: 0.45em; }
+      .detail-value { font-size: 0.55em; }
+      .end-slide h1 { font-size: 2em; }
+      .end-slide .divider { width: 40px; margin: 0.8em auto; }
+      .step { margin: 0.2em 0; padding-left: 0.5em; border-left-width: 2px; }
+      .q-num { width: 20px; height: 20px; font-size: 0.6em; margin-right: 0.4em; }
+      .tag { font-size: 0.55em; padding: 0.1em 0.5em; margin-right: 0.3em; }
+      .left-align h2 { margin-bottom: 0.2em; }
+      .slide-bg .symbol { font-size: 6em; }
+      .slide-bg .circle { opacity: 0.03; }
+      .slide-content div[style*="grid-template-columns:"] { grid-template-columns: 1fr !important; }
+    }
+
+    /* Small phone (<480px) */
+    @media (max-width: 480px) {
+      .diagram-box svg { max-width: 100%; height: auto; }
+      .flowchart .node { font-size: 0.45em; padding: 0.15em 0.4em; min-width: 50px; }
+      .prob-scale .segment { font-size: 0.4em; }
+      .reveal h1 { font-size: 1.3em; }
+      .reveal h2 { font-size: 0.95em; }
+      .reveal p, .reveal li { font-size: 0.58em; }
+      .reveal .slides section { padding: 0.3em 0.5em; }
+      .card { padding: 0.3em 0.5em; }
+      .card h4 { font-size: 0.65em; }
+      .card p, .card li { font-size: 0.55em; }
+      .formula-box { font-size: 0.52em; padding: 0.1em 0.4em; }
+      .title-slide h1 { font-size: 1.6em; }
+      .section-badge { font-size: 0.4em; }
+      .q-num { width: 18px; height: 18px; font-size: 0.5em; }
+    }
+
+    /* Hide particles on very small screens for performance */
+    @media (max-width: 360px) {
+      .particles { display: none; }
+    }
+
+    /* Landscape phone orientation fix */
+    @media (max-height: 500px) {
+      .reveal .slides section { padding: 0.2em 0.6em; }
+      .reveal h2 { font-size: 1em; }
+      .reveal p, .reveal li { font-size: 0.58em; }
+      .card { padding: 0.25em 0.5em; }
+      .card-grid { gap: 0.25em; margin-top: 0.2em; }
+      .step { margin: 0.1em 0; padding-left: 0.4em; }
+      .slide-bg .symbol { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Floating Particles ──────────────────────────────── -->
+  <div class="particles" id="particles"></div>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 1 — TITLE
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="circle" style="width:500px;height:500px;top:-100px;right:-100px;background:radial-gradient(circle,rgba(233,69,96,0.15),transparent);"></div>
+          <div class="circle" style="width:300px;height:300px;bottom:-50px;left:-50px;background:radial-gradient(circle,rgba(69,123,157,0.15),transparent);"></div>
+          <div class="circle" style="width:200px;height:200px;top:40%;left:20%;background:radial-gradient(circle,rgba(42,157,143,0.1),transparent);"></div>
+          <div class="symbol" style="top:20%;right:10%;">Ω</div>
+        </div>
+        <div class="slide-content title-slide">
+          <div class="course-label">CSC 21700</div>
+          <h1>Events &amp; Probability</h1>
+          <div class="divider"></div>
+          <p class="subtitle">Definitions &bull; Examples &bull; Exercises &bull; Assignment</p>
+          <div class="title-details">
+            <div class="detail-item">
+              <span class="detail-label">Course</span>
+              <span class="detail-value">Probability and Statistics for Computer Science</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Topic</span>
+              <span class="detail-value">Events and Probability</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Reporters</span>
+              <span class="detail-value">Merry Jay Tumulak, Junna Dag-uman, Nathaniel Rodrigo</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Section</span>
+              <span class="detail-value">33</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Date</span>
+              <span class="detail-value">July 26, 2026</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 2 — LEARNING OBJECTIVES
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="circle" style="width:400px;height:400px;top:-120px;left:-80px;background:radial-gradient(circle,rgba(42,157,143,0.1),transparent);"></div>
+          <div class="circle" style="width:250px;height:250px;bottom:-60px;right:-60px;background:radial-gradient(circle,rgba(69,123,157,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content left-align">
+          <span class="section-badge badge-green"><i class="fas fa-bullseye" style="margin-right:6px;"></i> LEARNING OBJECTIVES</span>
+          <h2>By the end of this report, you will be able to...</h2>
+
+          <div class="card-grid" style="margin-top:1em;">
+            <div class="card" style="border-color:rgba(42,157,143,0.3);">
+              <h4 style="color:#80cbc4;"><i class="fas fa-cube" style="margin-right:8px;"></i> Define key terms</h4>
+              <p>Understand sample space, events, probability, complement, union, and intersection.</p>
+            </div>
+            <div class="card" style="border-color:rgba(42,157,143,0.3);">
+              <h4 style="color:#80cbc4;"><i class="fas fa-calculator" style="margin-right:8px;"></i> Apply probability rules</h4>
+              <p>Use the axioms, complement rule, union rule, and conditional probability correctly.</p>
+            </div>
+            <div class="card" style="border-color:rgba(42,157,143,0.3);">
+              <h4 style="color:#80cbc4;"><i class="fas fa-random" style="margin-right:8px;"></i> Identify event types</h4>
+              <p>Distinguish between mutually exclusive, exhaustive, and independent events.</p>
+            </div>
+            <div class="card" style="border-color:rgba(42,157,143,0.3);">
+              <h4 style="color:#80cbc4;"><i class="fas fa-flask" style="margin-right:8px;"></i> Solve real problems</h4>
+              <p>Apply Bayes' Rule and the Law of Total Probability to practical scenarios.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 3 — DEFINITIONS: SAMPLE SPACE & EVENTS
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="symbol" style="top:50%;left:50%;">Ω</div>
+          <div class="circle" style="width:400px;height:400px;bottom:-150px;right:-80px;background:radial-gradient(circle,rgba(69,123,157,0.12),transparent);"></div>
+        </div>
+        <div class="slide-content">
+          <span class="section-badge badge-blue"><i class="fas fa-book-open" style="margin-right:6px;"></i> CORE CONCEPTS</span>
+          <h2>Sample Space &amp; Events</h2>
+
+          <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:0.6em;margin-top:0.4em;">
+            <!-- Left: Definitions -->
+            <div class="card-grid" style="gap:0.4em;margin-top:0;">
+              <div class="card">
+                <h4 style="color:#a8d8ea;">Sample Space (Ω)</h4>
+                <p>The set of <strong>all possible outcomes</strong> of an experiment or random process. Every outcome is unique, and together they cover everything that can happen.</p>
+                <p style="font-size:0.65em;margin-top:0.3em;opacity:0.6;"><em>In short:</em> The "universe" of what could happen.</p>
+              </div>
+              <div class="card">
+                <h4 style="color:#a8d8ea;">Event (E)</h4>
+                <p>A <strong>subset</strong> of the sample space — one or more outcomes grouped together. Events can be simple (single outcome) or compound (multiple outcomes).</p>
+                <p style="font-size:0.65em;margin-top:0.3em;opacity:0.6;"><em>In short:</em> A "collection" of outcomes you care about.</p>
+              </div>
+              <div class="card">
+                <h4 style="color:#a8d8ea;">Probability P(E)</h4>
+                <p>A number between <strong>0 and 1</strong> that measures how likely an event is to occur. 0 = impossible, 1 = certain, 0.5 = even chance.</p>
+                <p style="font-size:0.65em;margin-top:0.3em;opacity:0.6;"><em>Formula:</em> P(E) = (favorable outcomes) / (total outcomes)</p>
+              </div>
+              <div class="card">
+                <h4 style="color:#a8d8ea;">Complement (Ā or A<sup>c</sup>)</h4>
+                <p><strong>Everything not in A</strong>. If A is an event, Ā is the opposite event — all outcomes where A does <em>not</em> occur.</p>
+                <p style="font-size:0.65em;margin-top:0.3em;opacity:0.6;"><em>Rule:</em> P(Ā) = 1 − P(A)</p>
+              </div>
+            </div>
+
+            <!-- Right: Diagram + Probability Scale -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0.5em;">
+              <!-- SVG Sample Space Diagram -->
+              <div class="diagram-box">
+                <svg viewBox="0 0 280 220" width="260" height="200">
+                  <!-- Sample Space rectangle -->
+                  <rect x="10" y="10" width="250" height="180" rx="8" fill="none" stroke="rgba(168,216,234,0.3)" stroke-width="1.5"/>
+                  <text x="140" y="28" text-anchor="middle" class="venn-label" fill="rgba(168,216,234,0.5)">Ω — Sample Space</text>
+
+                  <!-- Outcome dots -->
+                  <circle cx="45" cy="55" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="85" cy="45" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="130" cy="65" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="170" cy="40" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="210" cy="55" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="55" cy="100" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="100" cy="110" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="150" cy="95" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="200" cy="105" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="240" cy="80" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="70" cy="150" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="120" cy="165" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="175" cy="155" r="3" fill="rgba(255,255,255,0.3)"/>
+                  <circle cx="220" cy="170" r="3" fill="rgba(255,255,255,0.3)"/>
+
+                  <!-- Event E (highlighted dotted circle) -->
+                  <ellipse cx="120" cy="100" rx="75" ry="55" fill="none" stroke="rgba(233,69,96,0.5)" stroke-width="1.5" stroke-dasharray="4,3"/>
+                  <text x="120" y="105" text-anchor="middle" class="venn-label-bright" fill="rgba(233,69,96,0.7)" font-size="11">Event E</text>
+
+                  <!-- Highlighted dots inside event -->
+                  <circle cx="85" cy="45" r="4" fill="rgba(233,69,96,0.6)"/>
+                  <circle cx="130" cy="65" r="4" fill="rgba(233,69,96,0.6)"/>
+                  <circle cx="100" cy="110" r="4" fill="rgba(233,69,96,0.6)"/>
+                  <circle cx="150" cy="95" r="4" fill="rgba(233,69,96,0.6)"/>
+                  <circle cx="70" cy="150" r="4" fill="rgba(233,69,96,0.6)"/>
+                  <circle cx="120" cy="165" r="4" fill="rgba(233,69,96,0.6)"/>
+                </svg>
+              </div>
+
+              <!-- Probability Scale -->
+              <div style="width:100%;max-width:260px;">
+                <p style="font-size:0.5em;opacity:0.5;margin-bottom:0.2em;text-align:center;">PROBABILITY SCALE</p>
+                <div class="prob-scale">
+                  <div class="segment" style="background:rgba(233,69,96,0.3);">0<br/>Impossible</div>
+                  <div class="segment" style="background:rgba(233,69,96,0.15);">&nbsp;</div>
+                  <div class="segment" style="background:rgba(245,166,35,0.2);">0.5<br/>Even Chance</div>
+                  <div class="segment" style="background:rgba(42,157,143,0.15);">&nbsp;</div>
+                  <div class="segment" style="background:rgba(42,157,143,0.3);">1<br/>Certain</div>
+                </div>
+              </div>
+
+              <!-- Example -->
+              <div style="width:100%;padding:0.3em 0.6em;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.06);">
+                <p style="margin:0;font-size:0.6em;"><strong style="color:#f5a261;">Example:</strong> Rolling a die → Ω = {1,2,3,4,5,6}, E = "even" = {2,4,6}, P(E) = 3/6 = 0.5</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 4 — SET OPERATIONS & EVENT TYPES
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="circle" style="width:350px;height:350px;top:-80px;right:-60px;background:radial-gradient(circle,rgba(42,157,143,0.1),transparent);"></div>
+          <div class="circle" style="width:250px;height:250px;bottom:-60px;left:-60px;background:radial-gradient(circle,rgba(233,69,96,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content">
+          <span class="section-badge badge-blue"><i class="fas fa-book-open" style="margin-right:6px;"></i> CORE CONCEPTS</span>
+          <h2>Set Operations &amp; Event Types</h2>
+
+          <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:0.6em;margin-top:0.4em;">
+            <!-- Left: Definitions -->
+            <div class="card-grid" style="gap:0.35em;margin-top:0;">
+              <div class="card">
+                <h4 style="color:#a8d8ea;">Union (A ∪ B)</h4>
+                <p>All outcomes that belong to <strong>A or B</strong> (including both). Think of it as "combining" both events.</p>
+              </div>
+              <div class="card">
+                <h4 style="color:#a8d8ea;">Intersection (A ∩ B)</h4>
+                <p>Outcomes that belong to <strong>both A and B</strong>. The overlap between two events.</p>
+              </div>
+              <div class="card">
+                <h4 style="color:#80cbc4;">Mutually Exclusive</h4>
+                <p>A ∩ B = ∅. Events that <strong>cannot happen at the same time</strong>. Example: rolling a 2 and a 5 on one die.</p>
+              </div>
+              <div class="card">
+                <h4 style="color:#80cbc4;">Exhaustive Events</h4>
+                <p>A ∪ B ∪ C ∪ … = Ω. A set of events that <strong>cover all possible outcomes</strong>. At least one must occur.</p>
+              </div>
+              <div class="card">
+                <h4 style="color:#f5c842;">Independent Events</h4>
+                <p>P(A∩B) = P(A)×P(B). The occurrence of one event does <strong>not affect</strong> the probability of the other.</p>
+              </div>
+              <div class="card">
+                <h4 style="color:#f5c842;">De Morgan's Laws</h4>
+                <p style="font-size:0.65em;">The complement of a union = intersection of complements, and vice versa.</p>
+              </div>
+            </div>
+
+            <!-- Right: Venn Diagram + Flowchart -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0.4em;">
+              <!-- Venn Diagram -->
+              <div class="diagram-box">
+                <svg viewBox="0 0 300 170" width="290" height="165">
+                  <!-- Union shading -->
+                  <clipPath id="unionClip">
+                    <circle cx="120" cy="90" r="55"/>
+                    <circle cx="185" cy="90" r="55"/>
+                  </clipPath>
+                  <rect x="40" y="20" width="220" height="140" rx="6" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                  <text x="150" y="172" text-anchor="middle" class="venn-label" fill="rgba(255,255,255,0.3)" font-size="8">Union A ∪ B (shaded)</text>
+
+                  <circle cx="120" cy="90" r="55" fill="rgba(233,69,96,0.12)" stroke="rgba(233,69,96,0.5)" stroke-width="1.5"/>
+                  <circle cx="185" cy="90" r="55" fill="rgba(69,123,157,0.12)" stroke="rgba(69,123,157,0.5)" stroke-width="1.5"/>
+                  <!-- shared area overlay -->
+                  <circle cx="120" cy="90" r="55" fill="rgba(233,69,96,0.08)"/>
+                  <circle cx="185" cy="90" r="55" fill="rgba(69,123,157,0.08)"/>
+                  <rect x="120" y="90" width="65" height="0" fill="none"/>
+
+                  <text x="100" y="95" text-anchor="middle" class="venn-label" fill="rgba(233,69,96,0.8)">A</text>
+                  <text x="205" y="95" text-anchor="middle" class="venn-label" fill="rgba(69,123,157,0.8)">B</text>
+
+                  <!-- Lower diagram: Mutually Exclusive -->
+                  <circle cx="90" cy="280" r="40" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                  <circle cx="180" cy="280" r="40" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                </svg>
+              </div>
+
+              <p style="font-size:0.5em;opacity:0.4;margin:0;">A ∪ B (all shaded area) &nbsp;|&nbsp; A ∩ B (overlap)</p>
+
+              <!-- Event Type Flowchart -->
+              <div class="flowchart">
+                <div class="row">
+                  <div class="node highlight-blue">Two Events</div>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="row">
+                  <div class="node highlight-green">Can they happen together?</div>
+                </div>
+                <div class="arrow">↙ &nbsp;&nbsp;&nbsp;&nbsp; ↘</div>
+                <div class="row">
+                  <div class="node highlight-orange" style="border-color:rgba(231,111,81,0.5);">NO → Mutually Exclusive</div>
+                  <div class="node highlight-gold" style="border-color:rgba(245,166,35,0.5);">YES → Check Independence</div>
+                </div>
+                <div class="arrow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↙ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↘</div>
+                <div class="row">
+                  <div class="node" style="border-color:rgba(42,157,143,0.4);font-size:0.55em;">P(A∩B)=P(A)P(B) → Independent</div>
+                  <div class="node" style="border-color:rgba(233,69,96,0.4);font-size:0.55em;">P(A∩B)≠P(A)P(B) → Dependent</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 4 — RULES OF PROBABILITY
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="symbol" style="top:50%;left:50%;">∑</div>
+          <div class="circle" style="width:450px;height:450px;top:10%;right:-100px;background:radial-gradient(circle,rgba(69,123,157,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content">
+          <span class="section-badge badge-blue"><i class="fas fa-calculator" style="margin-right:6px;"></i> RULES</span>
+          <h2>Rules of Probability</h2>
+          <div class="card-grid card-grid-2" style="margin-top:1em;">
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#a8d8ea;font-size:0.9em;">1. Unit Measure</h4>
+              <span class="formula-box">P(Ω) = 1</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#a8d8ea;font-size:0.9em;">2. Sigma-Additivity</h4>
+              <span class="formula-box">P(∪Eᵢ) = Σ P(Eᵢ)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#80cbc4;font-size:0.9em;">3. Complement</h4>
+              <span class="formula-box">P(Ā) = 1 − P(A)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#80cbc4;font-size:0.9em;">4. Union (Inclusion–Exclusion)</h4>
+              <span class="formula-box">P(A∪B) = P(A)+P(B)−P(A∩B)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#f5a261;font-size:0.9em;">5. Conditional</h4>
+              <span class="formula-box">P(A|B) = P(A∩B) / P(B)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#f5a261;font-size:0.9em;">6. Multiplication</h4>
+              <span class="formula-box">P(A∩B) = P(A|B)×P(B)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#f5c842;font-size:0.9em;">7. Law of Total Prob.</h4>
+              <span class="formula-box">P(A) = Σ P(A|Bᵢ)×P(Bᵢ)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#f5c842;font-size:0.9em;">8. Bayes' Rule</h4>
+              <span class="formula-box">P(B|A) = P(A|B)×P(B)/P(A)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 5 — EXAMPLE
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="circle" style="width:400px;height:400px;bottom:-120px;left:-100px;background:radial-gradient(circle,rgba(42,157,143,0.1),transparent);"></div>
+          <div class="circle" style="width:200px;height:200px;top:20%;right:10%;background:radial-gradient(circle,rgba(233,69,96,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content">
+          <span class="section-badge badge-green"><i class="fas fa-flask" style="margin-right:6px;"></i> EXAMPLE</span>
+          <h2>Microservices Architecture Failure Analysis</h2>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6em;margin-top:0.4em;">
+            <!-- Problem -->
+            <div class="card" style="border-color:rgba(69,123,157,0.3);">
+              <h4 style="color:#a8d8ea;"><i class="fas fa-sitemap" style="margin-right:6px;"></i> Scenario</h4>
+              <p>A <strong>microservices application</strong> has 3 independent services: <strong>Auth</strong>, <strong>Database</strong>, and <strong>API Gateway</strong>. Each can fail independently during peak load:</p>
+              <ul style="list-style:none;padding:0;margin-top:0.5em;">
+                <li style="font-size:0.75em;margin-bottom:0.3em;">• Auth fails: <span class="highlight">P(A) = 0.05</span></li>
+                <li style="font-size:0.75em;margin-bottom:0.3em;">• Database fails: <span class="highlight">P(D) = 0.03</span></li>
+                <li style="font-size:0.75em;margin-bottom:0.3em;">• API Gateway fails: <span class="highlight">P(G) = 0.02</span></li>
+              </ul>
+              <p style="margin-top:0.5em;font-weight:600;font-size:0.78em;">The app <span style="color:#f48fb1;">crashes</span> if all 3 fail. It's <span style="color:#f5a261;">degraded</span> if exactly 2 fail.</p>
+            </div>
+
+            <!-- Part A -->
+            <div class="card" style="border-color:rgba(42,157,143,0.3);">
+              <h4 style="color:#80cbc4;"><i class="fas fa-check-circle" style="margin-right:6px;"></i> Solution</h4>
+              <div class="step" style="margin:0.3em 0;">
+                <p style="font-size:0.72em;"><strong style="color:#80cbc4;">(a) P(app crashes)</strong> — all 3 fail together</p>
+                <span class="formula-box">= 0.05 × 0.03 × 0.02 = 0.00003</span>
+                <p style="font-size:0.65em;opacity:0.6;margin-top:0.2em;">Uses: Multiplication Rule (independence)</p>
+              </div>
+              <div class="step" style="margin:0.3em 0;">
+                <p style="font-size:0.72em;"><strong style="color:#80cbc4;">(b) P(fully operational)</strong> — all 3 work</p>
+                <span class="formula-box">= 1 − 0.00003 = 0.99997</span>
+                <p style="font-size:0.65em;opacity:0.6;margin-top:0.2em;">Uses: Complement Rule</p>
+              </div>
+              <div style="margin-top:0.3em;">
+                <div class="answer-box" style="font-size:0.7em;">Crash: 0.003% &nbsp;|&nbsp; Operational: 99.997%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Part C: degraded mode -->
+          <div style="margin-top:0.4em;display:grid;grid-template-columns:1fr 1fr;gap:0.6em;">
+            <div class="card" style="border-color:rgba(245,166,35,0.3);padding:0.5em 0.8em;">
+              <h4 style="color:#f5c842;font-size:0.78em;"><i class="fas fa-exclamation-triangle" style="margin-right:6px;"></i> (c) P(app degraded — exactly 2 fail)</h4>
+              <p style="font-size:0.65em;">3 possible combinations:</p>
+              <ul style="font-size:0.6em;margin-top:0.2em;padding-left:1.2em;">
+                <li>Auth + DB down, Gateway up: 0.05×0.03×0.98 = <span class="highlight">0.00147</span></li>
+                <li>Auth + Gateway down, DB up: 0.05×0.97×0.02 = <span class="highlight">0.00097</span></li>
+                <li>DB + Gateway down, Auth up: 0.95×0.03×0.02 = <span class="highlight">0.00057</span></li>
+              </ul>
+              <span class="formula-box" style="font-size:0.65em;">Total = 0.00147 + 0.00097 + 0.00057 = 0.00301</span>
+            </div>
+            <div class="card" style="border-color:rgba(42,157,143,0.3);padding:0.5em 0.8em;">
+              <h4 style="color:#80cbc4;font-size:0.78em;"><i class="fas fa-microchip" style="margin-right:6px;"></i> Computer Science Relevance</h4>
+              <ul style="font-size:0.6em;margin-top:0.2em;padding-left:1.2em;">
+                <li><strong>Cloud Computing</strong> — Estimating downtime for SLA guarantees</li>
+                <li><strong>Distributed Systems</strong> — Redundancy planning for fault tolerance</li>
+                <li><strong>DevOps</strong> — Calculating required replicas for 99.99% uptime</li>
+                <li><strong>Network Engineering</strong> — Reliability of multi-path routing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 6 — EXERCISE 1
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="symbol" style="top:30%;right:10%;">?</div>
+          <div class="circle" style="width:350px;height:350px;top:-80px;right:-60px;background:radial-gradient(circle,rgba(231,111,81,0.1),transparent);"></div>
+        </div>
+        <div class="slide-content left-align">
+          <span class="section-badge badge-orange"><i class="fas fa-users" style="margin-right:6px;"></i> CLASS ACTIVITY 1</span>
+          <h2>🔐 Password Strength Estimator</h2>
+
+          <div class="card" style="margin-top:0.4em;text-align:left;border-color:rgba(231,111,81,0.3);padding:0.5em 0.8em;">
+            <p style="font-size:0.78em;"><i class="fas fa-laptop-code" style="color:#f5a261;margin-right:8px;"></i> <strong>Scenario:</strong> A system generates 4-digit PINs (0000–9999) for user accounts. An attacker guesses randomly.</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6em;margin-top:0.5em;">
+            <div>
+              <div class="card" style="padding:0.4em 0.7em;border-color:rgba(231,111,81,0.2);">
+                <p style="font-size:0.72em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">1</span> How many possible PINs are there?</p>
+                <p style="font-size:0.65em;opacity:0.5;margin-top:0.2em;">Hint: Each digit is 0–9</p>
+              </div>
+              <div class="card" style="padding:0.4em 0.7em;border-color:rgba(231,111,81,0.2);">
+                <p style="font-size:0.72em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">2</span> If the attacker tries 1 PIN per second for 1 hour, what's P(no success)?</p>
+                <p style="font-size:0.65em;opacity:0.5;margin-top:0.2em;">Hint: Uses complement + multiplication</p>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="padding:0.4em 0.7em;border-color:rgba(231,111,81,0.2);">
+                <p style="font-size:0.72em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">3</span> What's P(at least one success in 1 hour)?</p>
+                <p style="font-size:0.65em;opacity:0.5;margin-top:0.2em;">Hint: Complement of Q2</p>
+              </div>
+              <div class="card" style="padding:0.4em 0.7em;border-color:rgba(231,111,81,0.2);">
+                <p style="font-size:0.72em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">4</span> How many hours to reach 90% success probability?</p>
+                <p style="font-size:0.65em;opacity:0.5;margin-top:0.2em;">Hint: Solve 1 − (9999/10000)<sup>t</sup> = 0.9</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 7 — EXERCISE 1 SOLUTION
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="circle" style="width:300px;height:300px;bottom:-80px;left:-80px;background:radial-gradient(circle,rgba(42,157,143,0.1),transparent);"></div>
+        </div>
+        <div class="slide-content left-align">
+          <span class="section-badge badge-green"><i class="fas fa-check" style="margin-right:6px;"></i> SOLUTION 1</span>
+          <h2>🔐 Password Strength — Answer</h2>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5em;margin-top:0.5em;">
+            <div class="card" style="padding:0.4em 0.7em;">
+              <p style="font-size:0.7em;font-weight:700;color:#80cbc4;">1. Total possible PINs</p>
+              <span class="formula-box">= 10 × 10 × 10 × 10 = 10,000</span>
+              <p style="font-size:0.6em;opacity:0.6;margin-top:0.15em;">Uses: Counting principle</p>
+            </div>
+            <div class="card" style="padding:0.4em 0.7em;">
+              <p style="font-size:0.7em;font-weight:700;color:#80cbc4;">2. P(no success in 3600 tries)</p>
+              <span class="formula-box">= (9999/10000)<sup>3600</sup> ≈ 0.6977</span>
+              <p style="font-size:0.6em;opacity:0.6;margin-top:0.15em;">Uses: Multiplication (independence)</p>
+            </div>
+            <div class="card" style="padding:0.4em 0.7em;">
+              <p style="font-size:0.7em;font-weight:700;color:#80cbc4;">3. P(at least one success)</p>
+              <span class="formula-box">= 1 − 0.6977 = 0.3023</span>
+              <p style="font-size:0.6em;opacity:0.6;margin-top:0.15em;">Uses: Complement rule</p>
+            </div>
+            <div class="card" style="padding:0.4em 0.7em;">
+              <p style="font-size:0.7em;font-weight:700;color:#80cbc4;">4. Hours for 90% success</p>
+              <span class="formula-box">t = ln(0.1)/ln(9999/10000) ≈ 23,025 tries ≈ 6.4 hrs</span>
+            </div>
+          </div>
+          <div class="answer-box" style="margin-top:0.3em;font-size:0.7em;">A 4-digit PIN is weak — only ~30% success in 1 hour!</div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 8 — EXERCISE 2
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="symbol" style="top:30%;right:10%;">?</div>
+          <div class="circle" style="width:350px;height:350px;bottom:-100px;right:-80px;background:radial-gradient(circle,rgba(231,111,81,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content left-align">
+          <span class="section-badge badge-orange"><i class="fas fa-users" style="margin-right:6px;"></i> CLASS ACTIVITY 2</span>
+          <h2>🐛 Bug Detection in Code Review</h2>
+
+          <div class="card" style="margin-top:0.4em;text-align:left;border-color:rgba(231,111,81,0.3);padding:0.5em 0.8em;">
+            <p style="font-size:0.78em;"><i class="fas fa-code" style="color:#f5a261;margin-right:8px;"></i> <strong>Scenario:</strong> A code review tool detects bugs with 90% accuracy. Only 8% of code submissions actually contain bugs.</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6em;margin-top:0.5em;">
+            <div>
+              <div class="card" style="padding:0.4em 0.7em;border-color:rgba(231,111,81,0.2);">
+                <p style="font-size:0.72em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">1</span> What's P(tool flags a bug)?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.15em;">Hint: Law of Total Probability</p>
+              </div>
+              <div class="card" style="padding:0.4em 0.7em;border-color:rgba(231,111,81,0.2);">
+                <p style="font-size:0.72em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">2</span> If flagged, P(actual bug)?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.15em;">Hint: Bayes' Rule</p>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="padding:0.4em 0.7em;border-color:rgba(231,111,81,0.2);">
+                <p style="font-size:0.72em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">3</span> If not flagged, P(no bug)?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.15em;">Hint: Bayes' Rule again</p>
+              </div>
+              <div class="card" style="padding:0.4em 0.7em;border-color:rgba(231,111,81,0.2);">
+                <p style="font-size:0.72em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">4</span> If 2 submissions flagged independently, P(both have bugs)?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.15em;">Hint: Multiplication Rule</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 9 — EXERCISE 2 SOLUTION
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="circle" style="width:300px;height:300px;top:-80px;left:-80px;background:radial-gradient(circle,rgba(42,157,143,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content left-align">
+          <span class="section-badge badge-green"><i class="fas fa-check" style="margin-right:6px;"></i> SOLUTION 2</span>
+          <h2>🐛 Bug Detection — Answer</h2>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5em;margin-top:0.5em;">
+            <div class="card" style="padding:0.4em 0.7em;">
+              <p style="font-size:0.7em;font-weight:700;color:#80cbc4;">1. P(tool flags)</p>
+              <span class="formula-box">= 0.90×0.08 + 0.10×0.92 = 0.164</span>
+              <p style="font-size:0.6em;opacity:0.6;margin-top:0.15em;">Law of Total Probability</p>
+            </div>
+            <div class="card" style="padding:0.4em 0.7em;">
+              <p style="font-size:0.7em;font-weight:700;color:#80cbc4;">2. P(bug | flagged)</p>
+              <span class="formula-box">= (0.90×0.08) / 0.164 ≈ 0.439</span>
+              <p style="font-size:0.6em;opacity:0.6;margin-top:0.15em;">Bayes' Rule — only ~44%!</p>
+            </div>
+            <div class="card" style="padding:0.4em 0.7em;">
+              <p style="font-size:0.7em;font-weight:700;color:#80cbc4;">3. P(no bug | not flagged)</p>
+              <span class="formula-box">= (0.92×0.90) / 0.836 ≈ 0.991</span>
+              <p style="font-size:0.6em;opacity:0.6;margin-top:0.15em;">High confidence when clean</p>
+            </div>
+            <div class="card" style="padding:0.4em 0.7em;">
+              <p style="font-size:0.7em;font-weight:700;color:#80cbc4;">4. P(both have bugs)</p>
+              <span class="formula-box">= 0.439 × 0.439 ≈ 0.193</span>
+              <p style="font-size:0.6em;opacity:0.6;margin-top:0.15em;">Independence assumption</p>
+            </div>
+          </div>
+          <div class="answer-box" style="margin-top:0.3em;font-size:0.7em;">Key insight: Even a 90% accurate tool gives only 44% confidence — base rate matters!</div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 10 — ASSIGNMENT
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="symbol" style="top:50%;left:50%;">P(A)</div>
+          <div class="circle" style="width:400px;height:400px;top:-100px;right:-100px;background:radial-gradient(circle,rgba(245,166,35,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content left-align">
+          <span class="section-badge badge-gold"><i class="fas fa-tasks" style="margin-right:6px;"></i> ASSIGNMENT</span>
+          <h2>📋 Network Security Risk Assessment</h2>
+
+          <div class="card" style="margin-top:0.4em;text-align:left;border-color:rgba(245,166,35,0.3);padding:0.5em 0.8em;">
+            <p style="font-size:0.78em;"><i class="fas fa-shield-alt" style="color:#f5c842;margin-right:8px;"></i> <strong>Scenario:</strong> A company's network has <strong>3 independent defense layers</strong>: Firewall (F), Intrusion Detection System (IDS), and Antivirus (AV). Historical data:</p>
+            <div style="display:flex;gap:0.6em;margin-top:0.4em;flex-wrap:wrap;">
+              <span class="tag tag-blue">P(F blocks) = 0.90</span>
+              <span class="tag tag-orange">P(IDS detects) = 0.85</span>
+              <span class="tag tag-gold">P(AV catches) = 0.75</span>
+            </div>
+            <p style="font-size:0.65em;opacity:0.6;margin-top:0.3em;">A threat slips through if all 3 layers fail. Each layer is independent.</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5em;margin-top:0.5em;">
+            <div>
+              <div class="card" style="padding:0.35em 0.6em;border-color:rgba(245,166,35,0.15);">
+                <p style="font-size:0.7em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">1</span> <strong>Sample Space:</strong> How many possible combinations of layer outcomes (block/detect/fail) exist?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.1em;">Covers: Counting principle</p>
+              </div>
+              <div class="card" style="padding:0.35em 0.6em;border-color:rgba(245,166,35,0.15);">
+                <p style="font-size:0.7em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">2</span> <strong>Union:</strong> What's P(at least one layer catches the threat)?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.1em;">Covers: Complement rule</p>
+              </div>
+              <div class="card" style="padding:0.35em 0.6em;border-color:rgba(245,166,35,0.15);">
+                <p style="font-size:0.7em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">3</span> <strong>Intersection:</strong> What's P(all 3 layers catch the threat)?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.1em;">Covers: Multiplication rule (independence)</p>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="padding:0.35em 0.6em;border-color:rgba(245,166,35,0.15);">
+                <p style="font-size:0.7em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">4</span> <strong>Conditional:</strong> Given IDS failed, P(Firewall also failed)?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.1em;">Covers: Conditional probability + independence</p>
+              </div>
+              <div class="card" style="padding:0.35em 0.6em;border-color:rgba(245,166,35,0.15);">
+                <p style="font-size:0.7em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">5</span> <strong>Bayes:</strong> If the threat got through, P(Firewall was the only one that failed)?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.1em;">Covers: Bayes' Rule + critical thinking</p>
+              </div>
+              <div class="card" style="padding:0.35em 0.6em;border-color:rgba(245,166,35,0.15);">
+                <p style="font-size:0.7em;"><span class="q-num" style="width:20px;height:20px;font-size:0.6em;">6</span> <strong>Challenge:</strong> The company adds a 4th layer. What minimum P(block) must it have to achieve 99.99% protection?</p>
+                <p style="font-size:0.6em;opacity:0.5;margin-top:0.1em;">Covers: Solving for unknown probability</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 11 — ASSIGNMENT SOLUTION
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="circle" style="width:350px;height:350px;bottom:-120px;left:-80px;background:radial-gradient(circle,rgba(42,157,143,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content left-align">
+          <span class="section-badge badge-green"><i class="fas fa-check" style="margin-right:6px;"></i> ASSIGNMENT SOLUTION</span>
+          <h2>📋 Network Security — Answer Key</h2>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4em;margin-top:0.4em;">
+            <div class="card" style="padding:0.35em 0.6em;">
+              <p style="font-size:0.65em;font-weight:700;color:#80cbc4;">1. Sample Space Size</p>
+              <span class="formula-box">2³ = 8 possible outcome combinations</span>
+              <p style="font-size:0.55em;opacity:0.5;">Each of 3 layers: 2 outcomes (success/fail)</p>
+            </div>
+            <div class="card" style="padding:0.35em 0.6em;">
+              <p style="font-size:0.65em;font-weight:700;color:#80cbc4;">2. P(at least one catches)</p>
+              <span class="formula-box">1 − (0.10×0.15×0.25) = 1 − 0.00375 = 0.99625</span>
+              <p style="font-size:0.55em;opacity:0.5;">Complement: 1 − P(all fail)</p>
+            </div>
+            <div class="card" style="padding:0.35em 0.6em;">
+              <p style="font-size:0.65em;font-weight:700;color:#80cbc4;">3. P(all 3 catch)</p>
+              <span class="formula-box">0.90 × 0.85 × 0.75 = 0.57375</span>
+              <p style="font-size:0.55em;opacity:0.5;">Multiplication rule (independence)</p>
+            </div>
+            <div class="card" style="padding:0.35em 0.6em;">
+              <p style="font-size:0.65em;font-weight:700;color:#80cbc4;">4. P(F failed | IDS failed)</p>
+              <span class="formula-box">P(F failed) = 0.10 (independent)</span>
+              <p style="font-size:0.55em;opacity:0.5;">Independent → P(F) = 0.10 regardless</p>
+            </div>
+            <div class="card" style="padding:0.35em 0.6em;">
+              <p style="font-size:0.65em;font-weight:700;color:#f5c842;">5. Bayes — Only Firewall failed given threat got through</p>
+              <span class="formula-box">= (0.10×0.85×0.75) / 0.00375 = 0.06375/0.00375 = 17</span>
+              <p style="font-size:0.55em;opacity:0.5;">EDA: F failed, IDS+AV succeeded / P(all fail)</p>
+            </div>
+            <div class="card" style="padding:0.35em 0.6em;">
+              <p style="font-size:0.65em;font-weight:700;color:#f5c842;">6. 4th layer for 99.99%</p>
+              <span class="formula-box">1 − (0.10×0.15×0.25×(1−p)) = 0.9999 → p = 0.7333</span>
+              <p style="font-size:0.55em;opacity:0.5;">New layer needs ≥ 73.33% detection</p>
+            </div>
+          </div>
+          <div class="answer-box" style="margin-top:0.3em;font-size:0.65em;">Current protection: 99.625% — adding a 4th layer with ~73% gives 99.99%</div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 12 — THANK YOU
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="circle" style="width:500px;height:500px;top:-150px;left:-100px;background:radial-gradient(circle,rgba(233,69,96,0.12),transparent);"></div>
+          <div class="circle" style="width:350px;height:350px;bottom:-100px;right:-80px;background:radial-gradient(circle,rgba(69,123,157,0.1),transparent);"></div>
+          <div class="circle" style="width:180px;height:180px;top:40%;right:30%;background:radial-gradient(circle,rgba(42,157,143,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content end-slide">
+          <h1>Thank You</h1>
+          <div class="divider"></div>
+          <p style="font-size:1.3em;opacity:0.7;">Questions?</p>
+          <p style="margin-top:3em;font-size:0.65em;opacity:0.35;">CSC 21700 — Probability and Statistics for Computer Science</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ── Reveal.js JS ───────────────────────────────────── -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.5/dist/reveal.js">
+  </script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      controlsLayout: 'bottom-right',
+      controlsBackArrows: 'visible',
+      progress: true,
+      center: true,
+      hash: true,
+      transition: 'slide',
+      transitionSpeed: 'fast',
+      backgroundTransition: 'fade',
+      scrollActivation: true,
+      width: '100%',
+      height: '100%',
+      margin: 0.02,
+      minScale: 0.2,
+      maxScale: 1.5,
+      slideNumber: 'c/t',
+      keyboard: true,
+      touch: true,
+      loop: false,
+      autoAnimate: true,
+      autoAnimateEasing: 'ease-out',
+      autoAnimateDuration: 0.8,
+      viewDistance: 3,
+      mobileViewDistance: 1,
+    });
+
+    // ── Fix slide backgrounds on orientation change ──────
+    window.addEventListener('resize', () => {
+      Reveal.layout();
+    });
+
+    // ── Generate Floating Particles ──────────────────────
+    (function initParticles() {
+      const isMobile = window.innerWidth < 768;
+      const container = document.getElementById('particles');
+      const colors = ['rgba(233,69,96,0.2)', 'rgba(69,123,157,0.2)',
+                      'rgba(42,157,143,0.2)', 'rgba(245,166,35,0.15)'];
+      const count = isMobile ? 10 : 30;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = (isMobile ? 2 : 4) + Math.random() * (isMobile ? 5 : 10);
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.background = colors[i % colors.length];
+        p.style.animationDuration = (12 + Math.random() * 20) + 's';
+        p.style.animationDelay = (Math.random() * 20) + 's';
+        p.style.transform = `scale(${0.5 + Math.random()})`;
+        container.appendChild(p);
+      }
+    })();
+  </script>
+</body>
+</html>
