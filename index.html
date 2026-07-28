@@ -363,26 +363,26 @@
             <div class="card">
               <div class="icon" style="color:#a8d8ea;">Ω</div>
               <h4 style="color:#a8d8ea;">Sample Space</h4>
-              <p>The set of all possible elementary outcomes of an experiment.</p>
+              <p>A collection of all elementary results, or outcomes of an experiment.</p>
             </div>
             <div class="card">
               <div class="icon" style="color:#a8d8ea;">E</div>
               <h4 style="color:#a8d8ea;">Event</h4>
-              <p>Any subset of the sample space. A collection of outcomes.</p>
+              <p>Any set of outcomes. Events are subsets of the sample space. N outcomes yield 2^N events.</p>
             </div>
             <div class="card">
               <div class="icon" style="color:#a8d8ea;">P(E)</div>
               <h4 style="color:#a8d8ea;">Probability</h4>
-              <p>A function assigning a number 0–1 to an event, representing likelihood.</p>
+              <p>A number between 0 and 1 measuring how likely an event is. P{E} = probability of event E.</p>
             </div>
             <div class="card">
               <div class="icon" style="color:#a8d8ea;">Ā</div>
               <h4 style="color:#a8d8ea;">Complement</h4>
-              <p>All outcomes <em>not</em> in event A. &nbsp; P(Ā) = 1 − P(A)</p>
+              <p>All outcomes <em>not</em> in event A. Notation: Ā or A^c. &nbsp; P(Ā) = 1 − P(A)</p>
             </div>
           </div>
           <div style="margin-top:0.6em;padding:0.5em 1em;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
-            <p style="margin:0;font-size:0.8em;"><strong style="color:#f5a261;">Example:</strong> Rolling a die → Ω = {1,2,3,4,5,6}. E = "even" = {2,4,6}. P(E) = 3/6 = 0.5.</p>
+            <p style="margin:0;font-size:0.8em;"><strong style="color:#f5a261;">Example 1:</strong> A tossed die produces 6 possible outcomes: 1 through 6 dots. &nbsp;Ω = {1,2,3,4,5,6}. E = "even" = {2,4,6}. P(E) = 3/6 = 0.5.</p>
           </div>
         </div>
       </section>
@@ -408,21 +408,24 @@
               <p>Outcomes in <em>both</em> A and B.</p>
             </div>
             <div class="card">
-              <h4 style="color:#80cbc4;">Mutually Exclusive</h4>
-              <p>A ∩ B = ∅. Events cannot happen together.</p>
+              <h4 style="color:#80cbc4;">Disjoint / Mutually Exclusive</h4>
+              <p>A ∩ B = ∅. Events cannot happen together. A_i ∩ A_j = ∅ for any i ≠ j.</p>
             </div>
             <div class="card">
               <h4 style="color:#80cbc4;">Exhaustive Events</h4>
-              <p>A ∪ B ∪ C ∪ … = Ω. They cover all outcomes.</p>
+              <p>A ∪ B ∪ C ∪ … = Ω. They cover all possible outcomes.</p>
             </div>
             <div class="card">
               <h4 style="color:#f5c842;">De Morgan's Laws</h4>
-              <p>Ā∪B = Ā ∩ B̅ &nbsp;&nbsp; and &nbsp;&nbsp; A∩B = Ā ∪ B̅</p>
+              <p>A∪B = Ā ∩ B̅ &nbsp;&nbsp; and &nbsp;&nbsp; A∩B = Ā ∪ B̅</p>
             </div>
             <div class="card">
-              <h4 style="color:#f5c842;">Independent Events</h4>
-              <p>P(A∩B) = P(A) × P(B). One does not affect the other.</p>
+              <h4 style="color:#f5c842;">Complement &amp; Difference</h4>
+              <p>Ā or A^c = complement. &nbsp; A \ B = difference.</p>
             </div>
+          </div>
+          <div style="margin-top:0.6em;padding:0.5em 1em;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
+            <p style="margin:0;font-size:0.8em;"><strong style="color:#f5a261;">Example 2:</strong> Receiving a grade of A, B, or C for some course are mutually exclusive events, but unfortunately, they are not exhaustive.</p>
           </div>
         </div>
       </section>
@@ -484,23 +487,23 @@
           <div class="circle" style="width:200px;height:200px;top:20%;right:10%;background:radial-gradient(circle,rgba(233,69,96,0.08),transparent);"></div>
         </div>
         <div class="slide-content">
-          <span class="section-badge badge-green"><i class="fas fa-flask" style="margin-right:6px;"></i> EXAMPLE</span>
-          <h2>Network Server Reliability</h2>
+          <span class="section-badge badge-green"><i class="fas fa-flask" style="margin-right:6px;"></i> EXAMPLE 4</span>
+          <h2>Hard Drive Crash Probability</h2>
 
           <div class="card-grid card-grid-2" style="margin-top:0.5em;">
             <div class="card" style="border-color:rgba(69,123,157,0.3);">
               <h4 style="color:#a8d8ea;"><i class="fas fa-question-circle" style="margin-right:6px;"></i> Problem</h4>
-              <p>A company runs a website on three independent servers.</p>
-              <p>Server A crashes: 0.05 &nbsp;|&nbsp; Server B: 0.03 &nbsp;|&nbsp; Server C: 0.02</p>
-              <p>The site goes down <em>only</em> when all three crash simultaneously.</p>
-              <p style="margin-top:0.8em;font-weight:600;">What is the probability the website stays up?</p>
+              <p>There is a 1% probability for a hard drive to crash. It has two backups, each having a 2% probability to crash.</p>
+              <p>All three components are independent of each other.</p>
+              <p>The stored information is lost only when all three devices crash.</p>
+              <p style="margin-top:0.8em;font-weight:600;">What is the probability that the information is saved?</p>
             </div>
             <div class="card" style="border-color:rgba(42,157,143,0.3);">
               <h4 style="color:#80cbc4;"><i class="fas fa-check-circle" style="margin-right:6px;"></i> Solution</h4>
-              <p>Let A, B, C = events that each server crashes. Independent.</p>
-              <p>P(down) = P(A∩B∩C) = 0.05 × 0.03 × 0.02 = <span class="highlight">0.00003</span></p>
-              <p>P(up) = 1 − 0.00003 = <span class="highlight">0.99997</span></p>
-              <div class="answer-box" style="margin-top:0.5em;">Answer: 99.997% probability</div>
+              <p>P(crash) = 0.01, P(backup1 crash) = 0.02, P(backup2 crash) = 0.02. Independent.</p>
+              <p>P(lost) = 0.01 × 0.02 × 0.02 = <span class="highlight">0.000004</span></p>
+              <p>P(saved) = 1 − 0.000004 = <span class="highlight">0.999996</span></p>
+              <div class="answer-box" style="margin-top:0.5em;">Answer: 99.9996% probability</div>
             </div>
           </div>
         </div>
@@ -516,21 +519,21 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-orange"><i class="fas fa-pencil-alt" style="margin-right:6px;"></i> EXERCISE 1</span>
-          <h2>Customer Purchases</h2>
+          <h2>Flight Departures &amp; Arrivals</h2>
 
           <div class="card" style="margin-top:0.6em;text-align:left;border-color:rgba(231,111,81,0.3);">
-            <p><i class="fas fa-store" style="color:#f5a261;margin-right:8px;"></i> In a store: 60% buy a product (P), 30% buy a service (S), 20% buy both.</p>
+            <p><i class="fas fa-plane" style="color:#f5a261;margin-right:8px;"></i> 90% of flights depart on time. 80% arrive on time. 75% depart AND arrive on time.</p>
           </div>
 
           <div style="margin-top:1.5em;">
             <div class="step">
-              <p><span class="q-num">a</span> What is the probability a customer buys at least one (product or service)?</p>
+              <p><span class="q-num">a</span> You meet a flight that departed on time. P(it arrives on time)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">b</span> What is the probability a customer buys only the product?</p>
+              <p><span class="q-num">b</span> You meet a flight that arrived on time. P(it departed on time)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">c</span> Are "buys product" and "buys service" independent? Justify.</p>
+              <p><span class="q-num">c</span> Are &quot;depart on time&quot; and &quot;arrive on time&quot; independent?</p>
             </div>
           </div>
         </div>
@@ -545,25 +548,25 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-green"><i class="fas fa-check" style="margin-right:6px;"></i> SOLUTION 1</span>
-          <h2>Customer Purchases — Answer</h2>
+          <h2>Flight Departures &amp; Arrivals — Answer</h2>
 
           <div style="margin-top:0.8em;">
-            <p><strong>Given:</strong> P(P) = 0.60, P(S) = 0.30, P(P∩S) = 0.20</p>
+            <p><strong>Given:</strong> P(D) = 0.90, P(A) = 0.80, P(D∩A) = 0.75</p>
           </div>
 
           <div class="step" style="margin-top:0.5em;">
-            <p><span style="color:#80cbc4;font-weight:700;">(a) P(P ∪ S)</span></p>
-            <span class="formula-box">= 0.60 + 0.30 − 0.20 = 0.70</span>
+            <p><span style="color:#80cbc4;font-weight:700;">(a) P(A | D) — Conditional</span></p>
+            <span class="formula-box">= P(D∩A) / P(D) = 0.75 / 0.90 = 0.8333</span>
           </div>
 
           <div class="step">
-            <p><span style="color:#80cbc4;font-weight:700;">(b) P(only product)</span></p>
-            <span class="formula-box">= P(P) − P(P∩S) = 0.60 − 0.20 = 0.40</span>
+            <p><span style="color:#80cbc4;font-weight:700;">(b) P(D | A) — Conditional</span></p>
+            <span class="formula-box">= P(D∩A) / P(A) = 0.75 / 0.80 = 0.9375</span>
           </div>
 
           <div class="step">
             <p><span style="color:#80cbc4;font-weight:700;">(c) Independence check</span></p>
-            <p>P(P)×P(S) = 0.60×0.30 = 0.18 &nbsp;≠&nbsp; P(P∩S) = 0.20</p>
+            <p>P(D)×P(A) = 0.90×0.80 = 0.72 &nbsp;≠&nbsp; P(D∩A) = 0.75</p>
             <div class="answer-box" style="margin-top:0.3em;">Not independent</div>
           </div>
         </div>
@@ -579,18 +582,18 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-orange"><i class="fas fa-pencil-alt" style="margin-right:6px;"></i> EXERCISE 2</span>
-          <h2>Email Spam Filter</h2>
+          <h2>Viral Infection Test</h2>
 
           <div class="card" style="margin-top:0.6em;text-align:left;border-color:rgba(231,111,81,0.3);">
-            <p><i class="fas fa-envelope" style="color:#f5a261;margin-right:8px;"></i> A spam filter: 98% sensitivity, 95% specificity. 40% of emails are spam.</p>
+            <p><i class="fas fa-virus" style="color:#f5a261;margin-right:8px;"></i> A test is 95% reliable for infected patients and 99% reliable for healthy ones. 4% of patients are infected.</p>
           </div>
 
 <div style="margin-top:0.6em;">
           <div class="step">
-              <p><span class="q-num">a</span> What is the probability an email is marked as spam?</p>
+              <p><span class="q-num">a</span> If the test shows positive, what is P(patient has the virus)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">b</span> If marked as spam, what is the probability it's actually spam?</p>
+              <p><span class="q-num">b</span> If the test shows negative, what is P(patient is healthy)?</p>
             </div>
           </div>
         </div>
@@ -605,22 +608,23 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-green"><i class="fas fa-check" style="margin-right:6px;"></i> SOLUTION 2</span>
-          <h2>Email Spam Filter — Answer</h2>
+          <h2>Viral Infection Test — Answer</h2>
 
           <div style="margin-top:0.8em;">
-            <p>Let S = "is spam", M = "marked as spam".</p>
-            <p>Given: P(S)=0.40, P(M|S)=0.98, P(M|S̅)=0.05</p>
+            <p>Let V = "has virus", T+ = "test positive".</p>
+            <p>Given: P(V)=0.04, P(T+|V)=0.95, P(T+|V̅)=0.01</p>
           </div>
 
           <div class="step" style="margin-top:0.5em;">
-            <p><span style="color:#80cbc4;font-weight:700;">(a) P(M) — Law of Total Probability</span></p>
-            <span class="formula-box">= 0.98×0.40 + 0.05×0.60 = 0.392 + 0.030 = 0.422</span>
+            <p><span style="color:#80cbc4;font-weight:700;">(a) P(V|T+) — Bayes' Rule</span></p>
+            <span class="formula-box">= (0.95×0.04) / (0.95×0.04 + 0.01×0.96) = 0.038 / 0.0476 ≈ 0.7983</span>
+            <div class="answer-box" style="margin-top:0.3em;">≈ 79.83% probability</div>
           </div>
 
           <div class="step">
-            <p><span style="color:#80cbc4;font-weight:700;">(b) P(S|M) — Bayes' Rule</span></p>
-            <span class="formula-box">= (0.98×0.40) / 0.422 = 0.392 / 0.422 ≈ 0.9289</span>
-            <div class="answer-box" style="margin-top:0.3em;">≈ 92.9% probability</div>
+            <p><span style="color:#80cbc4;font-weight:700;">(b) P(V̅|T−) — Bayes' Rule</span></p>
+            <span class="formula-box">= (0.99×0.96) / (0.99×0.96 + 0.05×0.04) = 0.9504 / 0.9524 ≈ 0.9979</span>
+            <div class="answer-box" style="margin-top:0.3em;">≈ 99.79% probability</div>
           </div>
         </div>
       </section>
@@ -635,29 +639,29 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-gold"><i class="fas fa-tasks" style="margin-right:6px;"></i> ASSIGNMENT</span>
-          <h2>Factory Quality Control</h2>
+          <h2>Unsigned Exam Papers</h2>
 
           <div class="card" style="margin-top:0.6em;text-align:left;border-color:rgba(245,166,35,0.3);">
-            <p><i class="fas fa-microchip" style="color:#f5c842;margin-right:8px;"></i> Three machines produce chips:</p>
+            <p><i class="fas fa-file-signature" style="color:#f5c842;margin-right:8px;"></i> Students X, Y, Z forgot to sign their papers. Prof knows they write a good exam with probabilities:</p>
             <div style="display:flex;gap:1em;margin-top:0.6em;flex-wrap:wrap;">
-              <span class="tag tag-blue">X: 50% output, 2% defective</span>
-              <span class="tag tag-orange">Y: 30% output, 4% defective</span>
-              <span class="tag tag-gold">Z: 20% output, 1% defective</span>
+              <span class="tag tag-blue">X: 0.8</span>
+              <span class="tag tag-orange">Y: 0.7</span>
+              <span class="tag tag-gold">Z: 0.5</span>
             </div>
           </div>
 
 <div style="margin-top:0.6em;">
           <div class="step">
-              <p><span class="q-num">1</span> P(random chip is defective)?</p>
+              <p><span class="q-num">1</span> After grading, two exams are good and one is bad. What are the possible assignments?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">2</span> If defective, P(it came from Y)?</p>
+              <p><span class="q-num">2</span> P(bad exam belongs to Z | two good, one bad)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">3</span> Are "defective" and "from X" independent?</p>
+              <p><span class="q-num">3</span> P(bad exam belongs to X)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">4</span> Pick 3 with replacement — P(at least one defective)?</p>
+              <p><span class="q-num">4</span> Which student is most likely to have written the bad exam?</p>
             </div>
           </div>
         </div>
@@ -672,28 +676,30 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-green"><i class="fas fa-check" style="margin-right:6px;"></i> ASSIGNMENT SOLUTION</span>
-          <h2>Factory Quality Control — Answer</h2>
+          <h2>Unsigned Exam Papers — Answer</h2>
 
           <div style="margin-top:0.5em;">
-            <p>D = defective, X/Y/Z = machine. <span class="highlight">P(D|X)=0.02, P(D|Y)=0.04, P(D|Z)=0.01</span></p>
+            <p>P(X good)=0.8, P(Y good)=0.7, P(Z good)=0.5. Independent. Two good, one bad.</p>
+            <p>P(evidence) = 0.2×0.7×0.5 + 0.3×0.8×0.5 + 0.5×0.8×0.7 = 0.07 + 0.12 + 0.28 = <span class="highlight">0.47</span></p>
           </div>
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5em;margin-top:0.5em;">
             <div class="card" style="padding:0.6em 1em;">
-              <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">1. Law of Total Probability</p>
-              <span class="formula-box">= 0.02×0.5 + 0.04×0.3 + 0.01×0.2 = 0.024</span>
+              <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">1. Possible assignments</p>
+              <p style="font-size:0.75em;">3 possibilities: (X bad, Y+Z good), (Y bad, X+Z good), (Z bad, X+Y good)</p>
             </div>
             <div class="card" style="padding:0.6em 1em;">
-              <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">2. Bayes' Rule</p>
-              <span class="formula-box">P(Y|D) = 0.012/0.024 = 0.5</span>
+              <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">2. P(X bad | evidence)</p>
+              <span class="formula-box">= 0.2×0.7×0.5 / 0.47 = 0.07/0.47 ≈ 0.1489</span>
             </div>
             <div class="card" style="padding:0.6em 1em;">
-              <p style="font-size:0.8em;font-weight:700;color:#f5a261;">3. Independence</p>
-              <p style="font-size:0.75em;">P(D|X)=0.02 ≠ P(D)=0.024 → <span class="highlight">Not independent</span></p>
+              <p style="font-size:0.8em;font-weight:700;color:#f5a261;">3. P(Y bad | evidence)</p>
+              <span class="formula-box">= 0.3×0.8×0.5 / 0.47 = 0.12/0.47 ≈ 0.2553</span>
             </div>
             <div class="card" style="padding:0.6em 1em;">
-              <p style="font-size:0.8em;font-weight:700;color:#f5a261;">4. At least one defective</p>
-              <span class="formula-box">= 1 − (0.976)³ ≈ 0.0703</span>
+              <p style="font-size:0.8em;font-weight:700;color:#f5a261;">4. Most likely</p>
+              <p style="font-size:0.75em;">P(Z bad) = 0.5×0.8×0.7 / 0.47 = 0.28/0.47 ≈ 0.5957</p>
+              <span class="formula-box">Z is most likely (59.57%)</span>
             </div>
           </div>
         </div>
