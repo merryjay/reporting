@@ -431,7 +431,55 @@
       </section>
 
       <!-- ══════════════════════════════════════════════════
-           SLIDE 4 — EXAMPLE 1 (Module) Tossed Die
+           SLIDE 4 — RULES OF PROBABILITY
+           ══════════════════════════════════════════════════ -->
+      <section>
+        <div class="slide-bg">
+          <div class="symbol" style="top:50%;left:50%;">∑</div>
+          <div class="circle" style="width:450px;height:450px;top:10%;right:-100px;background:radial-gradient(circle,rgba(69,123,157,0.08),transparent);"></div>
+        </div>
+        <div class="slide-content">
+          <span class="section-badge badge-blue"><i class="fas fa-calculator" style="margin-right:6px;"></i> RULES</span>
+          <h2>Rules of Probability</h2>
+          <div class="card-grid card-grid-2" style="margin-top:1em;">
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#a8d8ea;font-size:0.9em;">1. Unit Measure</h4>
+              <span class="formula-box">P(Ω) = 1</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#a8d8ea;font-size:0.9em;">2. Sigma-Additivity</h4>
+              <span class="formula-box">P(∪Eᵢ) = Σ P(Eᵢ)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#80cbc4;font-size:0.9em;">3. Complement</h4>
+              <span class="formula-box">P(Ā) = 1 − P(A)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#80cbc4;font-size:0.9em;">4. Union (Inclusion–Exclusion)</h4>
+              <span class="formula-box">P(A∪B) = P(A)+P(B)−P(A∩B)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#f5a261;font-size:0.9em;">5. Conditional</h4>
+              <span class="formula-box">P(A|B) = P(A∩B) / P(B)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#f5a261;font-size:0.9em;">6. Multiplication</h4>
+              <span class="formula-box">P(A∩B) = P(A|B)×P(B)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#f5c842;font-size:0.9em;">7. Law of Total Prob.</h4>
+              <span class="formula-box">P(A) = Σ P(A|Bᵢ)×P(Bᵢ)</span>
+            </div>
+            <div class="card" style="padding:0.8em 1em;">
+              <h4 style="color:#f5c842;font-size:0.9em;">8. Bayes' Rule</h4>
+              <span class="formula-box">P(B|A) = P(A|B)×P(B)/P(A)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════
+           SLIDE 5 — EXAMPLE
            ══════════════════════════════════════════════════ -->
       <section>
         <div class="slide-bg">
@@ -439,22 +487,23 @@
           <div class="circle" style="width:200px;height:200px;top:20%;right:10%;background:radial-gradient(circle,rgba(233,69,96,0.08),transparent);"></div>
         </div>
         <div class="slide-content">
-          <span class="section-badge badge-green"><i class="fas fa-flask" style="margin-right:6px;"></i> EXAMPLE 1</span>
-          <h2>Tossed Die Experiment</h2>
+          <span class="section-badge badge-green"><i class="fas fa-flask" style="margin-right:6px;"></i> EXAMPLE 4</span>
+          <h2>Hard Drive Crash Probability</h2>
 
           <div class="card-grid card-grid-2" style="margin-top:0.5em;">
             <div class="card" style="border-color:rgba(69,123,157,0.3);">
               <h4 style="color:#a8d8ea;"><i class="fas fa-question-circle" style="margin-right:6px;"></i> Problem</h4>
-              <p>A tossed die can produce one of 6 possible outcomes: 1 dot through 6 dots.</p>
-              <p>Each outcome is an event. There are also other events like observing an even number, an odd number, or a number less than 3.</p>
-              <p style="margin-top:0.8em;font-weight:600;">List all possible events and identify the sample space.</p>
+              <p>There is a 1% probability for a hard drive to crash. It has two backups, each having a 2% probability to crash.</p>
+              <p>All three components are independent of each other.</p>
+              <p>The stored information is lost only when all three devices crash.</p>
+              <p style="margin-top:0.8em;font-weight:600;">What is the probability that the information is saved?</p>
             </div>
             <div class="card" style="border-color:rgba(42,157,143,0.3);">
               <h4 style="color:#80cbc4;"><i class="fas fa-check-circle" style="margin-right:6px;"></i> Solution</h4>
-              <p>Sample space: Ω = {1, 2, 3, 4, 5, 6}</p>
-              <p>Possible events: E<sub>even</sub> = {2,4,6}, E<sub>odd</sub> = {1,3,5}, E<sub>&lt;3</sub> = {1,2}</p>
-              <p>A sample space of 6 outcomes yields 2<sup>6</sup> = 64 possible events.</p>
-              <div class="answer-box" style="margin-top:0.5em;">Ω has 6 outcomes, 64 possible events</div>
+              <p>P(crash) = 0.01, P(backup1 crash) = 0.02, P(backup2 crash) = 0.02. Independent.</p>
+              <p>P(lost) = 0.01 × 0.02 × 0.02 = <span class="highlight">0.000004</span></p>
+              <p>P(saved) = 1 − 0.000004 = <span class="highlight">0.999996</span></p>
+              <div class="answer-box" style="margin-top:0.5em;">Answer: 99.9996% probability</div>
             </div>
           </div>
         </div>
@@ -470,21 +519,21 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-orange"><i class="fas fa-pencil-alt" style="margin-right:6px;"></i> EXERCISE 1</span>
-          <h2>Coin Toss Experiment</h2>
+          <h2>Flight Departures &amp; Arrivals</h2>
 
           <div class="card" style="margin-top:0.6em;text-align:left;border-color:rgba(231,111,81,0.3);">
-            <p><i class="fas fa-coins" style="color:#f5a261;margin-right:8px;"></i> A fair coin is tossed twice. Consider the sample space of all possible outcomes.</p>
+            <p><i class="fas fa-plane" style="color:#f5a261;margin-right:8px;"></i> 90% of flights depart on time. 80% arrive on time. 75% depart AND arrive on time.</p>
           </div>
 
           <div style="margin-top:1.5em;">
             <div class="step">
-              <p><span class="q-num">a</span> Write the sample space Ω for two coin tosses.</p>
+              <p><span class="q-num">a</span> You meet a flight that departed on time. P(it arrives on time)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">b</span> Let A = &quot;at least one head&quot;. List the outcomes in A.</p>
+              <p><span class="q-num">b</span> You meet a flight that arrived on time. P(it departed on time)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">c</span> Let B = &quot;both tosses are the same&quot;. List the outcomes in B. Find A ∩ B.</p>
+              <p><span class="q-num">c</span> Are &quot;depart on time&quot; and &quot;arrive on time&quot; independent?</p>
             </div>
           </div>
         </div>
@@ -499,26 +548,26 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-green"><i class="fas fa-check" style="margin-right:6px;"></i> SOLUTION 1</span>
-          <h2>Coin Toss Experiment — Answer</h2>
+          <h2>Flight Departures &amp; Arrivals — Answer</h2>
 
           <div style="margin-top:0.8em;">
-            <p><strong>Given:</strong> A fair coin tossed twice. Each toss: H (heads) or T (tails).</p>
+            <p><strong>Given:</strong> P(D) = 0.90, P(A) = 0.80, P(D∩A) = 0.75</p>
           </div>
 
           <div class="step" style="margin-top:0.5em;">
-            <p><span style="color:#80cbc4;font-weight:700;">(a) Sample Space</span></p>
-            <span class="formula-box">Ω = {HH, HT, TH, TT}</span>
-            <p style="font-size:0.75em;margin-top:0.3em;">4 possible outcomes yield 2<sup>4</sup> = 16 possible events.</p>
+            <p><span style="color:#80cbc4;font-weight:700;">(a) P(A | D) — Conditional</span></p>
+            <span class="formula-box">= P(D∩A) / P(D) = 0.75 / 0.90 = 0.8333</span>
           </div>
 
           <div class="step">
-            <p><span style="color:#80cbc4;font-weight:700;">(b) Event A = &quot;at least one head&quot;</span></p>
-            <span class="formula-box">A = {HH, HT, TH}</span>
+            <p><span style="color:#80cbc4;font-weight:700;">(b) P(D | A) — Conditional</span></p>
+            <span class="formula-box">= P(D∩A) / P(A) = 0.75 / 0.80 = 0.9375</span>
           </div>
 
           <div class="step">
-            <p><span style="color:#80cbc4;font-weight:700;">(c) B = &quot;both tosses same&quot; and A ∩ B</span></p>
-            <span class="formula-box">B = {HH, TT}, &nbsp; A ∩ B = {HH}</span>
+            <p><span style="color:#80cbc4;font-weight:700;">(c) Independence check</span></p>
+            <p>P(D)×P(A) = 0.90×0.80 = 0.72 &nbsp;≠&nbsp; P(D∩A) = 0.75</p>
+            <div class="answer-box" style="margin-top:0.3em;">Not independent</div>
           </div>
         </div>
       </section>
@@ -533,22 +582,18 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-orange"><i class="fas fa-pencil-alt" style="margin-right:6px;"></i> EXERCISE 2</span>
-          <h2>Card Draw Event Types</h2>
+          <h2>Viral Infection Test</h2>
 
           <div class="card" style="margin-top:0.6em;text-align:left;border-color:rgba(231,111,81,0.3);">
-            <p><i class="fas fa-dice-d6" style="color:#f5a261;margin-right:8px;"></i> A single card is drawn from a standard 52-card deck. Consider these events:</p>
-            <p style="margin-top:0.4em;">A = &quot;draw a heart&quot;, &nbsp; B = &quot;draw a face card (J, Q, K)&quot;, &nbsp; C = &quot;draw a red card&quot;</p>
+            <p><i class="fas fa-virus" style="color:#f5a261;margin-right:8px;"></i> A test is 95% reliable for infected patients and 99% reliable for healthy ones. 4% of patients are infected.</p>
           </div>
 
 <div style="margin-top:0.6em;">
           <div class="step">
-              <p><span class="q-num">a</span> Are A and C mutually exclusive? Justify.</p>
+              <p><span class="q-num">a</span> If the test shows positive, what is P(patient has the virus)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">b</span> Are A and B exhaustive? Find A ∪ B.</p>
-            </div>
-            <div class="step">
-              <p><span class="q-num">c</span> Find A ∩ B and A \ B using set difference.</p>
+              <p><span class="q-num">b</span> If the test shows negative, what is P(patient is healthy)?</p>
             </div>
           </div>
         </div>
@@ -563,26 +608,23 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-green"><i class="fas fa-check" style="margin-right:6px;"></i> SOLUTION 2</span>
-          <h2>Card Draw Event Types — Answer</h2>
+          <h2>Viral Infection Test — Answer</h2>
 
           <div style="margin-top:0.8em;">
-            <p><strong>Given:</strong> Standard 52-card deck. A = hearts, B = face cards, C = red cards.</p>
+            <p>Let V = "has virus", T+ = "test positive".</p>
+            <p>Given: P(V)=0.04, P(T+|V)=0.95, P(T+|V̅)=0.01</p>
           </div>
 
           <div class="step" style="margin-top:0.5em;">
-            <p><span style="color:#80cbc4;font-weight:700;">(a) Mutually exclusive check</span></p>
-            <p>Hearts are red, so A ∩ C = A ≠ ∅. &nbsp; <span class="highlight">Not mutually exclusive</span></p>
+            <p><span style="color:#80cbc4;font-weight:700;">(a) P(V|T+) — Bayes' Rule</span></p>
+            <span class="formula-box">= (0.95×0.04) / (0.95×0.04 + 0.01×0.96) = 0.038 / 0.0476 ≈ 0.7983</span>
+            <div class="answer-box" style="margin-top:0.3em;">≈ 79.83% probability</div>
           </div>
 
           <div class="step">
-            <p><span style="color:#80cbc4;font-weight:700;">(b) Exhaustive check &amp; A ∪ B</span></p>
-            <span class="formula-box">A ∪ B = {all hearts} ∪ {face cards} ≠ Ω</span>
-            <p style="font-size:0.75em;">Not exhaustive — many cards are neither hearts nor face cards.</p>
-          </div>
-
-          <div class="step">
-            <p><span style="color:#80cbc4;font-weight:700;">(c) A ∩ B and A \ B</span></p>
-            <span class="formula-box">A ∩ B = {heart face cards} &nbsp;|&nbsp; A \ B = {non-face hearts}</span>
+            <p><span style="color:#80cbc4;font-weight:700;">(b) P(V̅|T−) — Bayes' Rule</span></p>
+            <span class="formula-box">= (0.99×0.96) / (0.99×0.96 + 0.05×0.04) = 0.9504 / 0.9524 ≈ 0.9979</span>
+            <div class="answer-box" style="margin-top:0.3em;">≈ 99.79% probability</div>
           </div>
         </div>
       </section>
@@ -592,34 +634,34 @@
            ══════════════════════════════════════════════════ -->
       <section>
         <div class="slide-bg">
-          <div class="symbol" style="top:50%;left:50%;">Ω</div>
+          <div class="symbol" style="top:50%;left:50%;">P(A)</div>
           <div class="circle" style="width:400px;height:400px;top:-100px;right:-100px;background:radial-gradient(circle,rgba(245,166,35,0.08),transparent);"></div>
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-gold"><i class="fas fa-tasks" style="margin-right:6px;"></i> ASSIGNMENT</span>
-          <h2>Rolling Two Dice</h2>
+          <h2>Unsigned Exam Papers</h2>
 
           <div class="card" style="margin-top:0.6em;text-align:left;border-color:rgba(245,166,35,0.3);">
-            <p><i class="fas fa-dice" style="color:#f5c842;margin-right:8px;"></i> Two fair dice are rolled. Consider these events:</p>
+            <p><i class="fas fa-file-signature" style="color:#f5c842;margin-right:8px;"></i> Students X, Y, Z forgot to sign their papers. Prof knows they write a good exam with probabilities:</p>
             <div style="display:flex;gap:1em;margin-top:0.6em;flex-wrap:wrap;">
-              <span class="tag tag-blue">A: sum = 7</span>
-              <span class="tag tag-orange">B: sum = 11</span>
-              <span class="tag tag-gold">C: both dice show the same number</span>
+              <span class="tag tag-blue">X: 0.8</span>
+              <span class="tag tag-orange">Y: 0.7</span>
+              <span class="tag tag-gold">Z: 0.5</span>
             </div>
           </div>
 
 <div style="margin-top:0.6em;">
           <div class="step">
-              <p><span class="q-num">1</span> Write the sample space Ω. How many outcomes?</p>
+              <p><span class="q-num">1</span> After grading, two exams are good and one is bad. What are the possible assignments?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">2</span> List outcomes in A, B, and C. Are A and B mutually exclusive?</p>
+              <p><span class="q-num">2</span> P(bad exam belongs to Z | two good, one bad)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">3</span> Find A ∪ C. Are A and C exhaustive?</p>
+              <p><span class="q-num">3</span> P(bad exam belongs to X)?</p>
             </div>
             <div class="step">
-              <p><span class="q-num">4</span> Find Ā (complement of A), verify De Morgan's: Ā∩B = Ā ∪ B̅</p>
+              <p><span class="q-num">4</span> Which student is most likely to have written the bad exam?</p>
             </div>
           </div>
         </div>
@@ -634,29 +676,30 @@
         </div>
         <div class="slide-content left-align">
           <span class="section-badge badge-green"><i class="fas fa-check" style="margin-right:6px;"></i> ASSIGNMENT SOLUTION</span>
-          <h2>Rolling Two Dice — Answer</h2>
+          <h2>Unsigned Exam Papers — Answer</h2>
 
           <div style="margin-top:0.5em;">
-            <p><strong>Given:</strong> Two fair dice rolled. Each die: 1-6. Outcomes are ordered pairs (die1, die2).</p>
+            <p>P(X good)=0.8, P(Y good)=0.7, P(Z good)=0.5. Independent. Two good, one bad.</p>
+            <p>P(evidence) = 0.2×0.7×0.5 + 0.3×0.8×0.5 + 0.5×0.8×0.7 = 0.07 + 0.12 + 0.28 = <span class="highlight">0.47</span></p>
           </div>
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5em;margin-top:0.5em;">
             <div class="card" style="padding:0.6em 1em;">
-              <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">1. Sample Space</p>
-              <p style="font-size:0.75em;">Ω = {(1,1)...(6,6)} &nbsp; 6×6 = <span class="highlight">36 outcomes</span></p>
+              <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">1. Possible assignments</p>
+              <p style="font-size:0.75em;">3 possibilities: (X bad, Y+Z good), (Y bad, X+Z good), (Z bad, X+Y good)</p>
             </div>
             <div class="card" style="padding:0.6em 1em;">
-              <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">2. A, B, C &amp; mutual exclusion</p>
-              <p style="font-size:0.75em;">A = {(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)} &nbsp; B = {(5,6),(6,5)} &nbsp; C = {(1,1)...(6,6)}</p>
-              <span class="formula-box">A ∩ B = ∅ → Mutually exclusive</span>
+              <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">2. P(X bad | evidence)</p>
+              <span class="formula-box">= 0.2×0.7×0.5 / 0.47 = 0.07/0.47 ≈ 0.1489</span>
             </div>
             <div class="card" style="padding:0.6em 1em;">
-              <p style="font-size:0.8em;font-weight:700;color:#f5a261;">3. A ∪ C &amp; exhaustive check</p>
-              <p style="font-size:0.75em;">A ∪ C has 6 + 6 − 1 = 11 outcomes (sum=7 overlap with doubles at none). Not exhaustive since 36 − 11 = 25 outcomes missing.</p>
+              <p style="font-size:0.8em;font-weight:700;color:#f5a261;">3. P(Y bad | evidence)</p>
+              <span class="formula-box">= 0.3×0.8×0.5 / 0.47 = 0.12/0.47 ≈ 0.2553</span>
             </div>
             <div class="card" style="padding:0.6em 1em;">
-              <p style="font-size:0.8em;font-weight:700;color:#f5a261;">4. Complement &amp; De Morgan's</p>
-              <p style="font-size:0.75em;">Ā = outcomes where sum ≠ 7 (30 outcomes). Ā∩B = Ā ∪ B̅ = complement of all outcomes where sum=7 or sum=11.</p>
+              <p style="font-size:0.8em;font-weight:700;color:#f5a261;">4. Most likely</p>
+              <p style="font-size:0.75em;">P(Z bad) = 0.5×0.8×0.7 / 0.47 = 0.28/0.47 ≈ 0.5957</p>
+              <span class="formula-box">Z is most likely (59.57%)</span>
             </div>
           </div>
         </div>
