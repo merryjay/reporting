@@ -17,7 +17,10 @@
     /* ── Base ───────────────────────────────────────────── */
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { overflow-x: hidden; }
     body {
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
       font-family: 'Inter', sans-serif;
       background: #0a0a1a;
       overflow: hidden;
@@ -360,16 +363,61 @@
       opacity: 0.6;
     }
 
-    /* ── Responsive ──────────────────────────────────────── */
+    /* ── Responsive: Tablets ─────────────────────────────── */
     @media (max-width: 768px) {
       .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
-      .reveal h1 { font-size: 2em; }
-      .title-slide h1 { font-size: 2.5em; }
+      .reveal h1 { font-size: 1.8em; }
+      .reveal h2 { font-size: 1.3em; }
+      .reveal p, .reveal li { font-size: 0.72em; }
+      .title-slide h1 { font-size: 2.2em; }
+      .card { padding: 0.5em 0.7em; }
+      .card-grid { gap: 0.4em; }
+      .section-badge { font-size: 0.5em; }
       .course-label { font-size: 0.5em; }
-      .title-slide .title-details { gap: 0.5em 1.2em; margin-top: 1.5em; }
-      .detail-item { min-width: 110px; }
-      .detail-label { font-size: 0.5em; }
-      .detail-value { font-size: 0.6em; }
+      .title-slide .title-details { gap: 0.4em 1em; margin-top: 1.2em; }
+      .detail-item { min-width: 100px; }
+      .detail-label { font-size: 0.45em; }
+      .detail-value { font-size: 0.55em; }
+      .slide-bg .symbol { font-size: 8em; }
+      .slide-bg .circle { opacity: 0.03; }
+      .formula-box { font-size: 0.65em; padding: 0.2em 0.5em; }
+      .step { padding-left: 0.5em; }
+      .q-num { width: 22px; height: 22px; font-size: 0.7em; }
+      .tag { font-size: 0.6em; }
+      .answer-box { font-size: 0.7em; }
+    }
+
+    /* ── Responsive: Phones ──────────────────────────────── */
+    @media (max-width: 480px) {
+      .reveal .slides section { padding: 0.4em 0.6em; }
+      .reveal h1 { font-size: 1.4em; }
+      .reveal h2 { font-size: 1.1em; }
+      .reveal h3 { font-size: 0.95em; }
+      .reveal p, .reveal li { font-size: 0.65em; }
+      .title-slide h1 { font-size: 1.6em; }
+      .title-slide .subtitle { font-size: 0.9em; }
+      .title-slide .divider { width: 50px; margin: 0.8em auto; }
+      .title-slide .footer-text { margin-top: 2em; font-size: 0.55em; }
+      .section-badge { font-size: 0.42em; padding: 0.12em 0.5em; }
+      .card-grid { gap: 0.3em; }
+      .card { padding: 0.35em 0.5em; border-radius: 8px; }
+      .card h4 { font-size: 0.75em; }
+      .card p, .card li { font-size: 0.6em; }
+      .formula-box { font-size: 0.55em; padding: 0.15em 0.4em; }
+      .course-label { font-size: 0.4em; padding: 0.12em 0.6em; }
+      .title-slide .title-details { gap: 0.3em 0.6em; margin-top: 0.8em; }
+      .detail-item { min-width: 70px; }
+      .detail-label { font-size: 0.4em; }
+      .detail-value { font-size: 0.45em; }
+      .slide-bg .symbol { font-size: 5em; }
+      .slide-bg .circle { display: none; }
+      .step { padding-left: 0.3em; margin: 0.2em 0; border-left-width: 2px; }
+      .q-num { width: 18px; height: 18px; font-size: 0.6em; }
+      .tag { font-size: 0.5em; padding: 0.1em 0.4em; }
+      .answer-box { font-size: 0.6em; padding: 0.2em 0.5em; }
+      .icon { font-size: 1em; }
+      .end-slide h1 { font-size: 2em; }
+      .particles { display: none; }
     }
   </style>
 </head>
