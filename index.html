@@ -436,22 +436,26 @@
             <div class="card">
               <div class="icon" style="color:#a8d8ea;">Ω</div>
               <h4 style="color:#a8d8ea;">Sample Space</h4>
-              <p>A collection of all elementary results, or outcomes of an experiment.</p>
+              <p>The set of <strong>every possible outcome</strong> of an experiment — nothing is left out.</p>
+              <span class="formula-box">Ω = {ω₁, ω₂, ..., ωₙ}</span>
             </div>
             <div class="card">
               <div class="icon" style="color:#a8d8ea;">E</div>
               <h4 style="color:#a8d8ea;">Event</h4>
-              <p>Any set of outcomes. Events are subsets of the sample space. N outcomes yield 2^N events.</p>
+              <p>Any <strong>subset</strong> of the sample space — a group of outcomes we care about.</p>
+              <span class="formula-box">E ⊆ Ω &nbsp;·&nbsp; N outcomes → 2ᴺ events</span>
             </div>
             <div class="card">
               <div class="icon" style="color:#a8d8ea;">P(E)</div>
               <h4 style="color:#a8d8ea;">Probability</h4>
-              <p>A number between 0 and 1 measuring how likely an event is. P{E} = probability of event E.</p>
+              <p>A number between 0 and 1 measuring <strong>how likely</strong> an event is to occur — 0 = impossible, 1 = certain.</p>
+              <span class="formula-box">P : 𝔐 → [0, 1] &nbsp;·&nbsp; P{E} = probability of E</span>
             </div>
             <div class="card">
               <div class="icon" style="color:#a8d8ea;">Ā</div>
               <h4 style="color:#a8d8ea;">Complement</h4>
-              <p>All outcomes <em>not</em> in event A. Notation: Ā or A^c. &nbsp; P(Ā) = 1 − P(A)</p>
+              <p>All outcomes <strong>NOT</strong> in event A — the opposite of the event occurring.</p>
+              <span class="formula-box">Ā = {x | x ∉ A} &nbsp;·&nbsp; P(Ā) = 1 − P(A)</span>
             </div>
           </div>
           <div style="margin-top:0.6em;padding:0.5em 1em;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
@@ -474,27 +478,37 @@
           <div class="card-grid card-grid-2" style="margin-top:0.6em;">
             <div class="card">
               <h4 style="color:#a8d8ea;">Union A ∪ B</h4>
-              <p>All outcomes in A <em>or</em> B (or both).</p>
+              <p>All outcomes that belong to <strong>A or B (or both)</strong> — an outcome counts if it is in at least one of the two events.</p>
+              <span class="formula-box">A ∪ B = {x | x ∈ A ∨ x ∈ B}</span>
             </div>
             <div class="card">
               <h4 style="color:#a8d8ea;">Intersection A ∩ B</h4>
-              <p>Outcomes in <em>both</em> A and B.</p>
+              <p>Only the outcomes that belong to <strong>both A and B</strong> — they must overlap for an outcome to count.</p>
+              <span class="formula-box">A ∩ B = {x | x ∈ A ∧ x ∈ B}</span>
             </div>
             <div class="card">
               <h4 style="color:#80cbc4;">Disjoint / Mutually Exclusive</h4>
-              <p>A ∩ B = ∅. Events cannot happen together. A_i ∩ A_j = ∅ for any i ≠ j.</p>
+              <p>Events that <strong>never overlap</strong> — if one happens, the other cannot possibly happen at the same time.</p>
+              <span class="formula-box">A ∩ B = ∅ &nbsp;·&nbsp; Aᵢ ∩ Aⱼ = ∅ for i ≠ j</span>
             </div>
             <div class="card">
               <h4 style="color:#80cbc4;">Exhaustive Events</h4>
-              <p>A ∪ B ∪ C ∪ … = Ω. They cover all possible outcomes.</p>
+              <p>A group of events that together <strong>cover every possible outcome</strong> — at least one of them must occur.</p>
+              <span class="formula-box">A ∪ B ∪ C ∪ … = Ω</span>
             </div>
             <div class="card">
               <h4 style="color:#f5c842;">De Morgan's Laws</h4>
-              <p>A∪B = Ā ∩ B̅ &nbsp;&nbsp; and &nbsp;&nbsp; A∩B = Ā ∪ B̅</p>
+              <p><strong>Law 1:</strong> Not in (A or B) = Not in A <em>and</em> not in B — the complement of a union is the intersection of complements.</p>
+              <span class="formula-box">A ∪ B = Ā ∩ B̅</span>
+              <p style="margin-top:0.4em;"><strong>Law 2:</strong> Not in (A and B) = Not in A <em>or</em> not in B — the complement of an intersection is the union of complements.</p>
+              <span class="formula-box">A ∩ B = Ā ∪ B̅</span>
             </div>
             <div class="card">
               <h4 style="color:#f5c842;">Complement &amp; Difference</h4>
-              <p>Ā or A^c = complement. &nbsp; A \ B = difference.</p>
+              <p><strong>Complement:</strong> Everything the event is <strong>NOT</strong> — the opposite of the event.</p>
+              <span class="formula-box">Ā = Aᶜ = {x | x ∉ A}</span>
+              <p style="margin-top:0.4em;"><strong>Difference:</strong> Outcomes that are in A <strong>but not in</strong> B — removing B's outcomes from A.</p>
+              <span class="formula-box">A \ B = {x | x ∈ A ∧ x ∉ B}</span>
             </div>
           </div>
           <div style="margin-top:0.6em;padding:0.5em 1em;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
@@ -527,7 +541,9 @@
               <p>Sample space: Ω = {1, 2, 3, 4, 5, 6}</p>
               <p>Possible events: E<sub>even</sub> = {2,4,6}, E<sub>odd</sub> = {1,3,5}, E<sub>&lt;3</sub> = {1,2}</p>
               <p>A sample space of 6 outcomes yields 2<sup>6</sup> = 64 possible events.</p>
-              <div class="answer-box" style="margin-top:0.5em;">Ω has 6 outcomes, 64 possible events</div>
+              <span class="formula-box" style="margin-top:0.3em;">P(E) = |E| / |Ω| = favorable / total</span>
+              <p style="margin-top:0.3em;font-size:0.75em;">Each outcome is equally likely → P(even) = 3/6 = 0.5, P(odd) = 3/6 = 0.5, P(&lt;3) = 2/6 ≈ 0.33</p>
+              <div class="answer-box" style="margin-top:0.5em;">Ω has 6 outcomes → 64 possible events</div>
             </div>
           </div>
         </div>
@@ -552,12 +568,15 @@
           <div style="margin-top:1.5em;">
             <div class="step">
               <p><span class="q-num">a</span> Write the sample space Ω for two coin tosses.</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">The sample space lists every possible sequence — each toss has 2 outcomes (H or T), so there are 2 × 2 = 4 equally likely outcomes.</p>
             </div>
             <div class="step">
               <p><span class="q-num">b</span> Let A = &quot;at least one head&quot;. List the outcomes in A.</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">A is the event containing all outcomes where at least one H appears — meaning 1 or 2 heads, but not zero heads.</p>
             </div>
             <div class="step">
               <p><span class="q-num">c</span> Let B = &quot;both tosses are the same&quot;. List the outcomes in B. Find A ∩ B.</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">A ∩ B finds outcomes where both conditions are true at once — intersection means they must satisfy both "at least one head" AND "both tosses are the same".</p>
             </div>
           </div>
         </div>
@@ -582,16 +601,19 @@
             <p><span style="color:#80cbc4;font-weight:700;">(a) Sample Space</span></p>
             <span class="formula-box">Ω = {HH, HT, TH, TT}</span>
             <p style="font-size:0.75em;margin-top:0.3em;">4 possible outcomes yield 2<sup>4</sup> = 16 possible events.</p>
+            <p style="font-size:0.7em;opacity:0.7;margin-top:0.15em;">Meaning: The sample space contains all 4 possible sequences of two coin flips — each sequence is equally likely since the coin is fair.</p>
           </div>
 
           <div class="step">
             <p><span style="color:#80cbc4;font-weight:700;">(b) Event A = &quot;at least one head&quot;</span></p>
             <span class="formula-box">A = {HH, HT, TH}</span>
+            <p style="font-size:0.7em;opacity:0.7;margin-top:0.15em;">Meaning: A includes every outcome with at least one H — the only outcome left out is TT (no heads at all).</p>
           </div>
 
           <div class="step">
             <p><span style="color:#80cbc4;font-weight:700;">(c) B = &quot;both tosses same&quot; and A ∩ B</span></p>
             <span class="formula-box">B = {HH, TT}, &nbsp; A ∩ B = {HH}</span>
+            <p style="font-size:0.7em;opacity:0.7;margin-top:0.15em;">Meaning: B contains outcomes where both tosses match. A ∩ B = {HH} is the only outcome that satisfies both "at least one head" AND "both tosses the same" — intersection finds common ground.</p>
           </div>
         </div>
       </section>
@@ -616,12 +638,15 @@
 <div style="margin-top:0.6em;">
           <div class="step">
               <p><span class="q-num">a</span> Are A and C mutually exclusive? Justify.</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">Mutually exclusive means no overlap — can a single card be both a heart AND red? If they share any outcomes, they are NOT mutually exclusive.</p>
             </div>
             <div class="step">
               <p><span class="q-num">b</span> Are A and B exhaustive? Find A ∪ B.</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">Exhaustive means covering the entire deck — does A ∪ B include all 52 cards? If any card is neither a heart nor a face card, they are NOT exhaustive.</p>
             </div>
             <div class="step">
               <p><span class="q-num">c</span> Find A ∩ B and A \ B using set difference.</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">A ∩ B = outcomes that are in BOTH A and B. A \ B = outcomes in A but NOT in B — remove the face cards from the hearts.</p>
             </div>
           </div>
         </div>
@@ -645,17 +670,20 @@
           <div class="step" style="margin-top:0.5em;">
             <p><span style="color:#80cbc4;font-weight:700;">(a) Mutually exclusive check</span></p>
             <p>Hearts are red, so A ∩ C = A ≠ ∅. &nbsp; <span class="highlight">Not mutually exclusive</span></p>
+            <p style="font-size:0.7em;opacity:0.7;margin-top:0.15em;">Meaning: Hearts are a subset of red cards (all hearts are red). Since they share outcomes (every heart is also a red card), A and C overlap — they are NOT mutually exclusive.</p>
           </div>
 
           <div class="step">
             <p><span style="color:#80cbc4;font-weight:700;">(b) Exhaustive check &amp; A ∪ B</span></p>
             <span class="formula-box">A ∪ B = {all hearts} ∪ {face cards} ≠ Ω</span>
             <p style="font-size:0.75em;">Not exhaustive — many cards are neither hearts nor face cards.</p>
+            <p style="font-size:0.7em;opacity:0.7;margin-top:0.15em;">Meaning: A ∪ B includes hearts plus face cards from all suits, but there are still many cards that are neither (e.g., 2♠, 5♦, 9♣). Since A ∪ B ≠ Ω, they are NOT exhaustive.</p>
           </div>
 
           <div class="step">
             <p><span style="color:#80cbc4;font-weight:700;">(c) A ∩ B and A \ B</span></p>
             <span class="formula-box">A ∩ B = {heart face cards} &nbsp;|&nbsp; A \ B = {non-face hearts}</span>
+            <p style="font-size:0.7em;opacity:0.7;margin-top:0.15em;">Meaning: A ∩ B = heart face cards — cards that are BOTH hearts AND face cards (J♥, Q♥, K♥). A \ B = hearts that are NOT face cards — removing face cards from hearts leaves ranks 2–10 + A♥.</p>
           </div>
         </div>
       </section>
@@ -684,15 +712,19 @@
 <div style="margin-top:0.6em;">
           <div class="step">
               <p><span class="q-num">1</span> Write the sample space Ω. How many outcomes?</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">Each die has 6 faces, so the sample space is all ordered pairs (die1, die2) — 6 × 6 = 36 equally likely outcomes.</p>
             </div>
             <div class="step">
               <p><span class="q-num">2</span> List outcomes in A, B, and C. Are A and B mutually exclusive?</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">Mutually exclusive means no overlap — can a single roll sum to both 7 AND 11? If A ∩ B = ∅, they are mutually exclusive.</p>
             </div>
             <div class="step">
               <p><span class="q-num">3</span> Find A ∪ C. Are A and C exhaustive?</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">Exhaustive means covering all 36 outcomes — does A ∪ C contain every possible roll? If any outcomes are missing, they are not exhaustive.</p>
             </div>
             <div class="step">
               <p><span class="q-num">4</span> Find Ā (complement of A), verify De Morgan's: Ā∩B = Ā ∪ B̅</p>
+              <p style="font-size:0.7em;opacity:0.6;margin-top:0.2em;">Ā = everything that is NOT a sum of 7. De Morgan's Law 1 says "not in (A or B) = not in A and not in B" — verify by computing both sides.</p>
             </div>
           </div>
         </div>
@@ -717,27 +749,31 @@
             <div class="card" style="padding:0.6em 1em;">
               <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">1. Sample Space</p>
               <p style="font-size:0.75em;">Ω = {(1,1)...(6,6)} &nbsp; 6×6 = <span class="highlight">36 outcomes</span></p>
+              <p style="font-size:0.65em;opacity:0.7;margin-top:0.2em;">Meaning: Each die has 6 faces, so 6 × 6 = 36 equally likely ordered pairs — every combination of die1 and die2 is a possible outcome.</p>
             </div>
             <div class="card" style="padding:0.6em 1em;">
               <p style="font-size:0.8em;font-weight:700;color:#80cbc4;">2. A, B, C &amp; mutual exclusion</p>
               <p style="font-size:0.75em;">A = {(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)} &nbsp; B = {(5,6),(6,5)} &nbsp; C = {(1,1)...(6,6)}</p>
               <span class="formula-box">A ∩ B = ∅ → Mutually exclusive</span>
+              <p style="font-size:0.65em;opacity:0.7;margin-top:0.2em;">Meaning: A (sum=7) has 6 outcomes and B (sum=11) has 2 outcomes. They share no outcomes — no single roll can sum to both 7 and 11, so A ∩ B = ∅.</p>
             </div>
             <div class="card" style="padding:0.6em 1em;">
               <p style="font-size:0.8em;font-weight:700;color:#f5a261;">3. A ∪ C &amp; exhaustive check</p>
               <p style="font-size:0.75em;">A ∪ C has 6 + 6 − 1 = 11 outcomes (sum=7 overlap with doubles at none). Not exhaustive since 36 − 11 = 25 outcomes missing.</p>
+              <p style="font-size:0.65em;opacity:0.7;margin-top:0.2em;">Meaning: A ∪ C combines sum=7 outcomes (6) with doubles (6) — no overlap since no double sums to 7. Only 11 out of 36 outcomes are covered, so 25 are missing — NOT exhaustive.</p>
             </div>
             <div class="card" style="padding:0.6em 1em;">
               <p style="font-size:0.8em;font-weight:700;color:#f5a261;">4. Complement &amp; De Morgan's</p>
               <p style="font-size:0.75em;">Ā = outcomes where sum ≠ 7 (30 outcomes). Ā∩B = Ā ∪ B̅ = complement of all outcomes where sum=7 or sum=11.</p>
+              <p style="font-size:0.65em;opacity:0.7;margin-top:0.2em;">Meaning: Ā = everything NOT in A (all 36 outcomes minus the 6 that sum to 7 = 30 outcomes). De Morgan's Law 1: Ā∩B = Ā ∪ B̅ — "not in (A or B)" equals "not in A and not in B", verified by computing both sides.</p>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ══════════════════════════════════════════════════
-           SLIDE 12 — THANK YOU
-           ══════════════════════════════════════════════════ -->
+            SLIDE 12 — THANK YOU
+            ══════════════════════════════════════════════════ -->
       <section>
         <div class="slide-bg">
           <div class="circle" style="width:500px;height:500px;top:-150px;left:-100px;background:radial-gradient(circle,rgba(233,69,96,0.12),transparent);"></div>
