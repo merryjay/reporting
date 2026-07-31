@@ -338,23 +338,16 @@
       text-transform: uppercase;
     }
     .title-details {
-      display: flex; flex-direction: column;
-      align-items: center;
-      gap: 0.7em;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 0.7em 1em;
       margin-top: 1.3em;
-      max-width: 620px;
-      width: 100%;
-    }
-    .detail-row {
-      display: flex; justify-content: center; align-items: stretch;
-      gap: 1em;
+      max-width: 640px;
       width: 100%;
     }
     .detail-item {
       display: flex; flex-direction: column; align-items: center;
       justify-content: center;
-      flex: 1 1 0;
-      min-width: 0;
       min-height: 6em;
       background: rgba(2,22,14,0.55);
       backdrop-filter: blur(12px);
@@ -365,8 +358,11 @@
       padding: 0.55em 0.9em;
       transition: var(--transition);
     }
-    .detail-wide { flex: 2 1 0; }
-    .detail-half { flex: 0 1 50%; }
+    .detail-item.course-item    { grid-column: 1 / 6; }
+    .detail-item.topic-item     { grid-column: 6 / 11; }
+    .detail-item.reporters-item { grid-column: 1 / 7; }
+    .detail-item.section-item   { grid-column: 7 / 11; }
+    .detail-item.date-item      { grid-column: 3 / 8; }
     .detail-item:hover { transform: translateY(-3px); border-color: rgba(255,183,77,0.55); }
     .detail-label {
       font-size: 0.55em; font-weight: 700;
@@ -542,8 +538,12 @@
       .title-slide .subtitle { font-size: 1.2em; }
       .course-label { font-size: 0.6em; }
       .hero-panel { padding: 1.6em 1.8em; }
-      .title-details { gap: 0.6em; margin-top: 1em; }
-      .detail-row { gap: 0.7em; }
+      .title-details { grid-template-columns: repeat(4, 1fr); gap: 0.6em; margin-top: 1em; }
+      .detail-item.course-item    { grid-column: 1 / 3; }
+      .detail-item.topic-item     { grid-column: 3 / 5; }
+      .detail-item.reporters-item { grid-column: 1 / 5; }
+      .detail-item.section-item   { grid-column: 1 / 3; }
+      .detail-item.date-item      { grid-column: 3 / 5; }
       .detail-item { min-height: 5.5em; padding: 0.45em 0.6em; }
       .detail-label { font-size: 0.5em; }
       .detail-value { font-size: 0.68em; }
@@ -562,9 +562,10 @@
       .title-slide .subtitle { font-size: 1em; }
       .course-label { font-size: 0.52em; }
       .hero-panel { padding: 1.2em 1em; }
-      .title-details { gap: 0.5em; margin-top: 0.85em; }
-      .detail-row { gap: 0.5em; }
-      .detail-item { min-height: 5em; padding: 0.4em 0.45em; }
+      .title-details { grid-template-columns: 1fr; gap: 0.5em; margin-top: 0.85em; }
+      .detail-item, .detail-item.course-item, .detail-item.topic-item,
+      .detail-item.reporters-item, .detail-item.section-item, .detail-item.date-item { grid-column: 1; }
+      .detail-item { min-height: 4.5em; padding: 0.4em 0.45em; }
       .detail-label { font-size: 0.46em; }
       .detail-value { font-size: 0.62em; }
       .card-grid { gap: 0.35em; }
@@ -644,31 +645,25 @@
             <div class="divider"></div>
             <p class="subtitle">Definitions &bull; Examples &bull; Exercises &bull; Assignment</p>
             <div class="title-details">
-              <div class="detail-row">
-                <div class="detail-item">
-                  <span class="detail-label">Course</span>
-                  <span class="detail-value">Advance Statistics and Probability</span>
-                </div>
-                <div class="detail-item">
-                  <span class="detail-label">Topic</span>
-                  <span class="detail-value">Events and Probability</span>
-                </div>
+              <div class="detail-item course-item">
+                <span class="detail-label">Course</span>
+                <span class="detail-value">Advance Statistics and Probability</span>
               </div>
-              <div class="detail-row">
-                <div class="detail-item detail-wide">
-                  <span class="detail-label">Reporters</span>
-                  <span class="detail-value">Merry Jay Tumulak, Junna Dag-uman, Nathaniel Rodrigo</span>
-                </div>
-                <div class="detail-item">
-                  <span class="detail-label">Section</span>
-                  <span class="detail-value">33</span>
-                </div>
+              <div class="detail-item topic-item">
+                <span class="detail-label">Topic</span>
+                <span class="detail-value">Events and Probability</span>
               </div>
-              <div class="detail-row">
-                <div class="detail-item detail-half">
-                  <span class="detail-label">Date</span>
-                  <span class="detail-value">July 26, 2026</span>
-                </div>
+              <div class="detail-item reporters-item">
+                <span class="detail-label">Reporters</span>
+                <span class="detail-value">Merry Jay Tumulak, Junna Dag-uman, Nathaniel Rodrigo</span>
+              </div>
+              <div class="detail-item section-item">
+                <span class="detail-label">Section</span>
+                <span class="detail-value">33</span>
+              </div>
+              <div class="detail-item date-item">
+                <span class="detail-label">Date</span>
+                <span class="detail-value">July 26, 2026</span>
               </div>
             </div>
           </div>
