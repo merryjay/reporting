@@ -294,22 +294,10 @@
       height: 100%; text-align: center;
     }
     .hero-panel {
-      position: relative;
-      background: linear-gradient(155deg, rgba(6,64,43,0.92) 0%, rgba(5,94,60,0.86) 45%, rgba(4,46,30,0.92) 100%);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(110,231,183,0.22);
-      border-radius: 26px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 70px rgba(16,185,129,0.22), inset 0 1px 0 rgba(255,255,255,0.14);
-      padding: 2.4em 3.2em;
       width: min(1000px, 92%);
       max-height: 96%;
       overflow-y: auto;
-    }
-    .hero-panel::before {
-      content: '';
-      position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+      padding: 0.4em 0;
     }
     .title-slide h1 {
       font-size: 4.2em; font-weight: 900;
@@ -336,6 +324,7 @@
       color: #6EE7B7;
       margin-bottom: 0.6em;
       text-transform: uppercase;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.55);
     }
     .title-details {
       display: grid;
@@ -537,7 +526,7 @@
       .title-slide h1 { font-size: 3.2em; }
       .title-slide .subtitle { font-size: 1.2em; }
       .course-label { font-size: 0.6em; }
-      .hero-panel { padding: 1.6em 1.8em; }
+      .hero-panel { padding: 0.35em 0; }
       .title-details { grid-template-columns: repeat(4, 1fr); gap: 0.6em; margin-top: 1em; }
       .detail-item.course-item    { grid-column: 1 / 3; }
       .detail-item.topic-item     { grid-column: 3 / 5; }
@@ -561,7 +550,7 @@
       .title-slide h1 { font-size: 2.2em; }
       .title-slide .subtitle { font-size: 1em; }
       .course-label { font-size: 0.52em; }
-      .hero-panel { padding: 1.2em 1em; }
+      .hero-panel { padding: 0.3em 0; }
       .title-details { grid-template-columns: 1fr; gap: 0.5em; margin-top: 0.85em; }
       .detail-item, .detail-item.course-item, .detail-item.topic-item,
       .detail-item.reporters-item, .detail-item.section-item, .detail-item.date-item { grid-column: 1; }
