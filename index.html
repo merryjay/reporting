@@ -15,28 +15,25 @@
   <style>
     /* ============ ROOT VARIABLES ============ */
     :root {
-      --green: #1E7D32;
-      --green-light: #4CAF50;
-      --green-dark: #155A24;
-      --green-glow: rgba(30,125,50,0.15);
+      --green: #059669;
+      --green-light: #34D399;
+      --green-dark: #04613F;
+      --green-glow: rgba(16,185,129,0.18);
       --orange: #F57C00;
       --orange-light: #FFB74D;
       --orange-dark: #E65100;
       --orange-glow: rgba(245,124,0,0.15);
-      --bg-dark: #0B0F1A;
+      --bg-dark: #08130F;
       --bg-card: rgba(255,255,255,0.1);
       --glass-bg: rgba(255,255,255,0.13);
       --glass-border: rgba(255,255,255,0.18);
       --glass-shadow: rgba(0,0,0,0.3);
       --text: #F2F5F9;
       --text-dim: rgba(255,255,255,0.75);
-      --green-text: #7BD389;
+      --green-text: #6EE7B7;
       --orange-text: #FFC878;
       --gold-text: #FFD54F;
       --blue-text: #BDE3F5;
-      --radius: 20px;
-      --radius-sm: 12px;
-      --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -99,7 +96,7 @@
     #bg-overlay {
       position: fixed; inset: 0; z-index: 0;
       pointer-events: none;
-      background: linear-gradient(165deg, rgba(11,15,26,0.62) 0%, rgba(11,15,26,0.42) 50%, rgba(11,15,26,0.7) 100%);
+      background: linear-gradient(165deg, rgba(5,24,17,0.66) 0%, rgba(7,38,24,0.48) 50%, rgba(5,30,19,0.72) 100%);
     }
 
     .blob {
@@ -114,7 +111,7 @@
     }
     .blob:nth-child(2) {
       width: 450px; height: 450px; bottom: -10%; right: -8%;
-      background: radial-gradient(circle, var(--orange-light), var(--orange));
+      background: radial-gradient(circle, #2DD4BF, #0D9488);
       animation-duration: 22s; animation-delay: -6s;
     }
     .blob:nth-child(3) {
@@ -124,7 +121,7 @@
     }
     .blob:nth-child(4) {
       width: 300px; height: 300px; top: 15%; right: 5%;
-      background: radial-gradient(circle, var(--orange), transparent);
+      background: radial-gradient(circle, #0D9488, transparent);
       animation-duration: 20s; animation-delay: -4s;
     }
 
@@ -297,26 +294,32 @@
       height: 100%; text-align: center;
     }
     .hero-panel {
-      background: rgba(11,15,26,0.55);
+      position: relative;
+      background: linear-gradient(155deg, rgba(6,64,43,0.92) 0%, rgba(5,94,60,0.86) 45%, rgba(4,46,30,0.92) 100%);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 24px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12);
+      border: 1px solid rgba(110,231,183,0.22);
+      border-radius: 26px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 70px rgba(16,185,129,0.22), inset 0 1px 0 rgba(255,255,255,0.14);
       padding: 2.2em 3em;
       width: min(880px, 94%);
       max-height: 96%;
       overflow-y: auto;
+    }
+    .hero-panel::before {
+      content: '';
+      position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
     }
     .title-slide h1 {
       font-size: 4em; font-weight: 900;
       color: #ffffff;
       margin-bottom: 0.12em;
       position: relative;
-      text-shadow: 0 3px 6px rgba(0,0,0,0.6), 0 12px 32px rgba(0,0,0,0.45);
+      text-shadow: 0 3px 6px rgba(0,0,0,0.6), 0 0 44px rgba(52,211,153,0.35), 0 12px 32px rgba(0,0,0,0.45);
     }
     .title-slide .subtitle {
-      font-size: 1.35em; font-weight: 500; color: #EAF1F8;
+      font-size: 1.35em; font-weight: 500; color: #EAFBF3;
       text-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
     .title-slide .divider {
@@ -324,13 +327,13 @@
       background: linear-gradient(90deg, var(--green), var(--orange));
       margin: 0.7em auto;
       border-radius: 2px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 18px rgba(245,124,0,0.45);
     }
     .course-label {
       font-size: 0.72em;
       font-weight: 700;
       letter-spacing: 0.2em;
-      color: #A5E6B0;
+      color: #6EE7B7;
       margin-bottom: 0.6em;
       text-transform: uppercase;
     }
@@ -346,15 +349,16 @@
       display: flex; flex-direction: column; align-items: center;
       min-width: 120px;
       flex: 1 1 0;
-      background: rgba(13,18,30,0.5);
+      background: rgba(2,22,14,0.55);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.18);
+      border: 1px solid rgba(110,231,183,0.24);
       border-radius: var(--radius-sm);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 28px rgba(0,0,0,0.35);
       padding: 0.55em 0.9em;
       transition: var(--transition);
     }
-    .detail-item:hover { transform: translateY(-3px); border-color: var(--orange-glow); }
+    .detail-item:hover { transform: translateY(-3px); border-color: rgba(255,183,77,0.55); }
     .detail-label {
       font-size: 0.55em; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.1em;
@@ -368,7 +372,7 @@
     /* ============ END SLIDE ============ */
     .end-slide h1 {
       font-size: 3em; font-weight: 900;
-      background: linear-gradient(135deg, #7BD389, #FFC878);
+      background: linear-gradient(135deg, #6EE7B7, #FFC878);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -495,6 +499,28 @@
       position: absolute; pointer-events: none; z-index: 1;
       font-size: 1.6em; opacity: 0.1;
       user-select: none;
+      animation: doodleFloat 12s ease-in-out infinite;
+    }
+    .doodle:nth-child(even) { animation-duration: 15s; animation-delay: -5s; }
+    @keyframes doodleFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(4deg); }
+    }
+
+    /* ============ GLOWING PARTICLES ============ */
+    .particle {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle, rgba(110,231,183,0.95) 0%, rgba(52,211,153,0.3) 55%, rgba(52,211,153,0) 100%);
+      box-shadow: 0 0 14px rgba(52,211,153,0.8);
+      animation: particleFloat 16s ease-in-out infinite;
+    }
+    .particle.orange {
+      background: radial-gradient(circle, rgba(255,200,120,0.95) 0%, rgba(245,124,0,0.3) 55%, rgba(245,124,0,0) 100%);
+      box-shadow: 0 0 14px rgba(245,124,0,0.7);
+    }
+    @keyframes particleFloat {
+      0%, 100% { transform: translate(0,0) scale(1); opacity: 0.25; }
+      50% { transform: translate(14px,-28px) scale(1.25); opacity: 0.7; }
     }
 
     /* ============ RESPONSIVE ============ */
@@ -585,6 +611,16 @@
           <div class="doodle" style="bottom:10%;right:6%;">🧮</div>
           <div class="doodle" style="top:55%;left:4%;">Σ</div>
           <div class="doodle" style="top:60%;right:4%;">μ</div>
+          <div class="doodle" style="top:8%;right:30%;">📊</div>
+          <div class="doodle" style="bottom:26%;left:24%;">🔬</div>
+          <div class="doodle" style="top:42%;right:10%;">📉</div>
+          <!-- Glowing particles -->
+          <div class="particle" style="width:8px;height:8px;top:18%;left:20%;"></div>
+          <div class="particle" style="width:6px;height:6px;top:35%;right:15%;animation-delay:-4s;"></div>
+          <div class="particle" style="width:10px;height:10px;bottom:24%;left:12%;animation-delay:-8s;"></div>
+          <div class="particle" style="width:5px;height:5px;bottom:14%;right:22%;animation-delay:-2s;"></div>
+          <div class="particle orange" style="width:7px;height:7px;top:65%;left:8%;animation-delay:-6s;"></div>
+          <div class="particle orange" style="width:5px;height:5px;top:12%;right:8%;animation-delay:-10s;"></div>
           <!-- Mascots -->
           <div class="mascot-statue" style="bottom:8%;left:3%;">🧑‍🔬</div>
           <div class="mascot-statue" style="bottom:5%;right:5%;animation-delay:-1s;">📊</div>
