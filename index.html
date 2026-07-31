@@ -15,40 +15,56 @@
   <style>
     /* ============ ROOT VARIABLES ============ */
     :root {
-      --green: #059669;
-      --green-light: #34D399;
-      --green-dark: #04613F;
-      --green-glow: rgba(16,185,129,0.18);
-      --orange: #F57C00;
-      --orange-light: #FFB74D;
-      --orange-dark: #E65100;
-      --orange-glow: rgba(245,124,0,0.15);
-      --bg-dark: #08130F;
+      --green: #1E8449;
+      --green-light: #A5D6A7;
+      --green-dark: #0B3D2E;
+      --green-glow: rgba(30,132,73,0.22);
+      --orange: #F39C12;
+      --orange-light: #F5B041;
+      --orange-dark: #C67F0A;
+      --orange-glow: rgba(243,156,18,0.18);
+      --bg-dark: #0B3D2E;
       --bg-card: rgba(255,255,255,0.1);
-      --glass-bg: rgba(255,255,255,0.13);
+      --glass-bg: rgba(255,255,255,0.12);
       --glass-border: rgba(255,255,255,0.18);
       --glass-shadow: rgba(0,0,0,0.3);
-      --text: #F2F5F9;
-      --text-dim: rgba(255,255,255,0.75);
-      --green-text: #6EE7B7;
-      --orange-text: #FFC878;
+      --text: #FFFFFF;
+      --text-dim: rgba(255,255,255,0.78);
+      --green-text: #A5D6A7;
+      --orange-text: #F5B041;
       --gold-text: #FFD54F;
       --blue-text: #BDE3F5;
+      --radius: 18px;
+      --radius-sm: 14px;
+      --transition: all 0.3s ease;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(150deg, #064E3B 0%, #059669 38%, #047857 62%, #065F46 100%);
+      background: linear-gradient(150deg, #0B3D2E 0%, #145A32 34%, #1E8449 60%, #0B3D2E 100%);
+      background-size: 220% 220%;
       color: var(--text);
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
+      animation: bgShift 36s ease-in-out infinite alternate;
+    }
+    @keyframes bgShift {
+      0%   { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.38) 100%);
     }
 
     .reveal {
       font-family: 'Inter', sans-serif;
       font-size: 22px;
+      position: relative;
+      z-index: 2;
     }
 
     .reveal h2, .reveal h3, .reveal h4 {
@@ -57,7 +73,7 @@
       letter-spacing: -0.02em;
       text-shadow: 0 2px 12px rgba(0,0,0,0.35);
     }
-    .title-slide h1, .end-slide h1 { text-shadow: none; }
+    .end-slide h1 { text-shadow: none; }
 
     .reveal h1 { font-size: 2.6em; font-weight: 900; }
     .reveal h2 { font-size: 1.7em; font-weight: 800; }
@@ -87,6 +103,45 @@
       border-radius: var(--radius);
     }
 
+    /* ============ FLOATING GLASS NAVBAR ============ */
+    #glass-nav {
+      position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+      z-index: 9998;
+      display: flex; align-items: center; gap: 2px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 100px;
+      padding: 6px 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 24px rgba(30,132,73,0.28), inset 0 1px 0 rgba(255,255,255,0.12);
+      font-family: 'Inter', sans-serif;
+    }
+    #glass-nav .nav-item {
+      display: flex; align-items: center; gap: 7px;
+      padding: 7px 15px; border-radius: 100px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 600; letter-spacing: 0.03em;
+      cursor: pointer; user-select: none;
+      background: transparent;
+      border: 1px solid transparent;
+      position: relative;
+      transition: var(--transition);
+    }
+    #glass-nav .nav-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    #glass-nav .nav-item.active {
+      color: #fff;
+      background: rgba(30,132,73,0.38);
+      border-color: rgba(255,255,255,0.22);
+      box-shadow: 0 0 18px rgba(30,132,73,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    #glass-nav .nav-item.active::after {
+      content: ''; position: absolute; left: 30%; right: 30%; bottom: 3px; height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--orange-light));
+      box-shadow: 0 0 8px rgba(243,156,18,0.8);
+    }
+
     /* ============ ANIMATED BACKGROUND ============ */
     #bg-canvas {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
@@ -96,7 +151,9 @@
     #bg-overlay {
       position: fixed; inset: 0; z-index: 0;
       pointer-events: none;
-      background: linear-gradient(165deg, rgba(4,42,30,0.42) 0%, rgba(4,52,34,0.25) 50%, rgba(4,46,31,0.5) 100%);
+      background:
+        radial-gradient(ellipse at 50% -20%, rgba(165,214,167,0.13), transparent 55%),
+        linear-gradient(165deg, rgba(4,25,17,0.5) 0%, rgba(4,35,22,0.32) 50%, rgba(4,30,20,0.55) 100%);
     }
 
     .blob {
@@ -111,7 +168,7 @@
     }
     .blob:nth-child(2) {
       width: 450px; height: 450px; bottom: -10%; right: -8%;
-      background: radial-gradient(circle, #2DD4BF, #0D9488);
+      background: radial-gradient(circle, #8ED1A0, #1E8449);
       animation-duration: 22s; animation-delay: -6s;
     }
     .blob:nth-child(3) {
@@ -121,7 +178,7 @@
     }
     .blob:nth-child(4) {
       width: 300px; height: 300px; top: 15%; right: 5%;
-      background: radial-gradient(circle, #0D9488, transparent);
+      background: radial-gradient(circle, #2EA15F, transparent);
       animation-duration: 20s; animation-delay: -4s;
     }
 
@@ -292,74 +349,223 @@
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       height: 100%; text-align: center;
+      padding-top: 2.6em;
     }
     .hero-panel {
-      width: min(1000px, 92%);
+      width: min(1040px, 92%);
       max-height: 96%;
       overflow-y: auto;
       padding: 0.4em 0;
     }
     .title-slide h1 {
-      font-size: 4.2em; font-weight: 900;
-      color: #ffffff;
-      margin-bottom: 0.12em;
+      font-size: 4.4em; font-weight: 900;
+      margin-bottom: 0.1em;
       position: relative;
-      text-shadow: 0 3px 6px rgba(0,0,0,0.6), 0 0 44px rgba(52,211,153,0.35), 0 12px 32px rgba(0,0,0,0.45);
+      background: linear-gradient(180deg, #FFFFFF 0%, #EAFBF3 55%, #A5D6A7 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.55))
+              drop-shadow(0 5px 8px rgba(0,0,0,0.4))
+              drop-shadow(0 12px 24px rgba(0,0,0,0.4))
+              drop-shadow(0 0 46px rgba(165,214,167,0.4));
+      animation: titleRise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes titleRise {
+      0%   { opacity: 0; transform: translateY(24px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     .title-slide .subtitle {
       font-size: 1.35em; font-weight: 500; color: #EAFBF3;
       text-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
+    .title-slide .subtitle .sep {
+      color: var(--orange);
+      padding: 0 0.55em;
+      text-shadow: 0 0 12px rgba(243,156,18,0.85);
+    }
     .title-slide .divider {
-      width: 90px; height: 3px;
-      background: linear-gradient(90deg, var(--green), var(--orange));
-      margin: 0.7em auto;
+      width: 110px; height: 3px;
+      background: linear-gradient(90deg, var(--green-light), var(--green), var(--orange), var(--orange-light));
+      margin: 0.75em auto;
       border-radius: 2px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 18px rgba(245,124,0,0.45);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4), 0 0 20px rgba(243,156,18,0.5), 0 0 28px rgba(165,214,167,0.35);
     }
     .course-label {
+      display: inline-block;
       font-size: 0.72em;
       font-weight: 700;
-      letter-spacing: 0.2em;
-      color: #6EE7B7;
-      margin-bottom: 0.6em;
+      letter-spacing: 0.22em;
+      color: #EAFBF3;
       text-transform: uppercase;
       text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+      background: rgba(30,132,73,0.35);
+      border: 1px solid rgba(165,214,167,0.5);
+      border-radius: 100px;
+      padding: 0.55em 1.4em;
+      margin-bottom: 0.75em;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 0 22px rgba(30,132,73,0.55), inset 0 1px 0 rgba(255,255,255,0.2);
+      animation: badgePulse 3.5s ease-in-out infinite;
+    }
+    @keyframes badgePulse {
+      0%, 100% { box-shadow: 0 0 16px rgba(30,132,73,0.45), inset 0 1px 0 rgba(255,255,255,0.2); }
+      50%      { box-shadow: 0 0 34px rgba(165,214,167,0.55), inset 0 1px 0 rgba(255,255,255,0.2); }
     }
     .title-details {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 0.7em 1em;
-      margin-top: 1.3em;
-      max-width: 640px;
+      margin: 1.4em auto 0;
+      max-width: 700px;
       width: 100%;
     }
     .detail-item {
       display: flex; flex-direction: column; align-items: center;
       justify-content: center;
       min-height: 6em;
-      background: rgba(2,22,14,0.55);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(110,231,183,0.24);
+      background: rgba(11,61,46,0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(165,214,167,0.28);
       border-radius: var(--radius-sm);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 28px rgba(0,0,0,0.35);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 8px 28px rgba(0,0,0,0.35), 0 0 18px rgba(30,132,73,0.18);
       padding: 0.55em 0.9em;
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
     }
-    .detail-item.course-item    { grid-column: 1 / 3; }
-    .detail-item.topic-item     { grid-column: 3 / 5; }
-    .detail-item.reporters-item { grid-column: 5 / 7; }
-    .detail-item.section-item   { grid-column: 2 / 4; }
-    .detail-item.date-item      { grid-column: 4 / 6; }
-    .detail-item:hover { transform: translateY(-3px); border-color: rgba(255,183,77,0.55); }
+    .detail-item::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+    }
+    .detail-item.course-item    { grid-column: 1 / 4; }
+    .detail-item.topic-item     { grid-column: 4 / 7; }
+    .detail-item.reporters-item { grid-column: 1 / 5; }
+    .detail-item.section-item   { grid-column: 5 / 7; }
+    .detail-item.date-item      { grid-column: 2 / 6; }
+    .detail-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(243,156,18,0.6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 14px 36px rgba(0,0,0,0.4), 0 0 26px rgba(243,156,18,0.25);
+    }
     .detail-label {
       font-size: 0.55em; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      color: #FFD180; margin-bottom: 0.2em;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: #F5B041; margin-bottom: 0.2em;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
     }
     .detail-value { font-size: 0.75em; font-weight: 600; text-align: center; color: #ffffff; line-height: 1.4; overflow-wrap: break-word; }
-    .title-section .mascot-statue { opacity: 0.4; }
+
+    /* ============ MISSION BUTTON ============ */
+    .mission-btn {
+      margin-top: 1.5em;
+      display: inline-flex; align-items: center; gap: 0.6em;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95em; font-weight: 700; letter-spacing: 0.06em;
+      color: #fff;
+      background: linear-gradient(135deg, #1E8449, #0B3D2E);
+      border: 1px solid rgba(165,214,167,0.55);
+      border-radius: 100px;
+      padding: 0.75em 2.1em;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 26px rgba(30,132,73,0.55), inset 0 1px 0 rgba(255,255,255,0.25);
+      transition: var(--transition);
+      animation: btnGlow 3s ease-in-out infinite;
+    }
+    .mission-btn::after {
+      content: ''; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+      transform: rotate(25deg);
+      animation: btnShine 3.4s ease-in-out infinite;
+    }
+    .mission-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.4), 0 0 44px rgba(165,214,167,0.6), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+    .mission-btn:active { transform: translateY(-1px) scale(0.98); }
+    @keyframes btnGlow {
+      0%, 100% { box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 22px rgba(30,132,73,0.5), inset 0 1px 0 rgba(255,255,255,0.25); }
+      50%      { box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 46px rgba(165,214,167,0.6), inset 0 1px 0 rgba(255,255,255,0.25); }
+    }
+    @keyframes btnShine {
+      0% { left: -60%; }
+      55%, 100% { left: 135%; }
+    }
+
+    /* ============ HERO MASCOTS ============ */
+    .mascot {
+      position: absolute; z-index: 2; pointer-events: none;
+      user-select: none; text-align: center;
+    }
+    .mascot-badge {
+      font-size: 2.3em; line-height: 1;
+      width: 1.85em; height: 1.85em;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at 30% 30%, rgba(30,132,73,0.9), rgba(11,61,46,0.95));
+      border: 2px solid rgba(165,214,167,0.65);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(30,132,73,0.55), inset 0 0 12px rgba(165,214,167,0.25);
+      position: relative;
+      animation: mascotBounce 4s ease-in-out infinite;
+    }
+    .mascot-badge::after {
+      content: 'Σ';
+      position: absolute; bottom: -0.62em; left: 50%; transform: translateX(-50%);
+      font-size: 0.52em; font-weight: 900;
+      color: rgba(243,156,18,0.95);
+      text-shadow: 0 0 10px rgba(243,156,18,0.85);
+    }
+    .mascot-name {
+      font-size: 0.52em; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #A5D6A7; margin-top: 0.7em;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      white-space: nowrap;
+    }
+    .mascot-bubble {
+      position: absolute; bottom: calc(100% + 12px); left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: rgba(11,20,14,0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 12px;
+      padding: 0.45em 0.8em;
+      font-size: 0.52em; font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      box-shadow: 0 4px 20px var(--glass-shadow);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    }
+    .mascot-bubble::after {
+      content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid rgba(255,255,255,0.25);
+    }
+    .mascot-bubble.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ============ HANDWRITTEN JOKE DOODLES ============ */
+    .joke {
+      position: absolute; z-index: 1; pointer-events: none; user-select: none;
+      font-family: 'Segoe Print', 'Comic Sans MS', 'Bradley Hand', cursive;
+      font-size: 0.78em; font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      opacity: 0.42;
+      animation: jokeFloat 10s ease-in-out infinite;
+    }
+    @keyframes jokeFloat {
+      0%, 100% { transform: rotate(var(--joke-rot, 0deg)) translateY(0); }
+      50%      { transform: rotate(var(--joke-rot, 0deg)) translateY(-7px); }
+    }
+
     .title-section .doodle { opacity: 0.14; }
     .title-section .slide-bg .symbol { opacity: 0.05; }
 
@@ -523,22 +729,23 @@
       .reveal h1 { font-size: 2.4em; }
       .reveal h2 { font-size: 1.6em; }
       .reveal p, .reveal li { font-size: 0.88em; }
-      .title-slide h1 { font-size: 3.2em; }
+      .title-slide h1 { font-size: 3.4em; }
       .title-slide .subtitle { font-size: 1.2em; }
-      .course-label { font-size: 0.6em; }
+      .course-label { font-size: 0.6em; padding: 0.5em 1.1em; }
       .hero-panel { padding: 0.35em 0; }
-      .title-details { grid-template-columns: repeat(6, 1fr); gap: 0.6em; margin-top: 1em; }
-      .detail-item.course-item    { grid-column: 1 / 3; }
-      .detail-item.topic-item     { grid-column: 3 / 5; }
-      .detail-item.reporters-item { grid-column: 5 / 7; }
-      .detail-item.section-item   { grid-column: 2 / 4; }
-      .detail-item.date-item      { grid-column: 4 / 6; }
+      .title-details { grid-template-columns: repeat(6, 1fr); gap: 0.6em; margin: 1em auto 0; max-width: 560px; }
       .detail-item { min-height: 5.5em; padding: 0.45em 0.6em; }
       .detail-label { font-size: 0.5em; }
-      .detail-value { font-size: 0.68em; }
+      .detail-value { font-size: 0.66em; }
       .card { padding: 0.5em 0.7em; }
       .card p, .card li { font-size: 0.84em; }
       .mascot-statue { font-size: 2em; }
+      .mascot { transform: scale(0.85); }
+      .mascot-bubble, .mascot-name { display: none; }
+      .mission-btn { font-size: 0.85em; padding: 0.65em 1.7em; margin-top: 1.2em; }
+      .joke { display: none; }
+      #glass-nav { font-size: 13px; padding: 4px 7px; top: 10px; }
+      #glass-nav .nav-item { padding: 6px 11px; }
       .slide-bg .symbol { font-size: 6em; }
       .section-badge { font-size: 0.5em; }
     }
@@ -547,11 +754,12 @@
       .reveal h1 { font-size: 1.8em; }
       .reveal h2 { font-size: 1.4em; }
       .reveal p, .reveal li { font-size: 0.82em; }
-      .title-slide h1 { font-size: 2.2em; }
+      .title-slide { padding-top: 3.4em; }
+      .title-slide h1 { font-size: 2.3em; }
       .title-slide .subtitle { font-size: 1em; }
-      .course-label { font-size: 0.52em; }
+      .course-label { font-size: 0.52em; padding: 0.45em 0.9em; letter-spacing: 0.14em; }
       .hero-panel { padding: 0.3em 0; }
-      .title-details { grid-template-columns: 1fr; gap: 0.5em; margin-top: 0.85em; }
+      .title-details { grid-template-columns: 1fr; gap: 0.5em; margin: 0.85em auto 0; }
       .detail-item, .detail-item.course-item, .detail-item.topic-item,
       .detail-item.reporters-item, .detail-item.section-item, .detail-item.date-item { grid-column: 1; }
       .detail-item { min-height: 4.5em; padding: 0.4em 0.45em; }
@@ -563,13 +771,18 @@
       .formula-box { font-size: 0.72em; }
       .section-badge { font-size: 0.48em; }
       .mascot-statue { font-size: 1.4em; }
+      .mascot { display: none; }
+      .mission-btn { font-size: 0.78em; padding: 0.6em 1.4em; }
       .achievement { min-width: 200px; }
       .float-icon { display: none; }
       .blob { opacity: 0.06; }
+      #glass-nav { font-size: 12px; gap: 0; padding: 4px 6px; }
+      #glass-nav .nav-item { padding: 5px 9px; }
+      #glass-nav .nl { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-      .blob, .float-icon, .mascot-statue, .particle { display: none; }
+      .blob, .float-icon, .mascot-statue, .mascot-badge, .particle, .joke { display: none; }
     }
   </style>
 </head>
@@ -593,6 +806,14 @@
 
   <div id="bg-overlay"></div>
 
+  <!-- ============ FLOATING NAVBAR ============ -->
+  <nav id="glass-nav" aria-label="Presentation sections">
+    <div class="nav-item active" data-section="home">🏠<span class="nl">&nbsp;Home</span></div>
+    <div class="nav-item" data-section="lessons">📖<span class="nl">&nbsp;Lessons</span></div>
+    <div class="nav-item" data-section="exercises">🧩<span class="nl">&nbsp;Exercises</span></div>
+    <div class="nav-item" data-section="assignment">📝<span class="nl">&nbsp;Assignment</span></div>
+  </nav>
+
   <div class="reveal">
     <div class="slides">
 
@@ -615,6 +836,10 @@
           <div class="doodle" style="top:8%;right:30%;">📊</div>
           <div class="doodle" style="bottom:26%;left:24%;">🔬</div>
           <div class="doodle" style="top:42%;right:10%;">📉</div>
+          <!-- Handwritten jokes -->
+          <div class="joke" style="top:16%;left:5%;--joke-rot:-4deg;animation-delay:-2s;">"Outliers are just dramatic points."</div>
+          <div class="joke" style="bottom:16%;right:3%;--joke-rot:3deg;animation-delay:-6s;">"Standard deviation keeps everyone humble."</div>
+          <div class="joke" style="top:26%;right:8%;--joke-rot:2deg;animation-delay:-9s;">"Trust the data, not your guess."</div>
           <!-- Glowing particles -->
           <div class="particle" style="width:8px;height:8px;top:18%;left:20%;"></div>
           <div class="particle" style="width:6px;height:6px;top:35%;right:15%;animation-delay:-4s;"></div>
@@ -622,39 +847,52 @@
           <div class="particle" style="width:5px;height:5px;bottom:14%;right:22%;animation-delay:-2s;"></div>
           <div class="particle orange" style="width:7px;height:7px;top:65%;left:8%;animation-delay:-6s;"></div>
           <div class="particle orange" style="width:5px;height:5px;top:12%;right:8%;animation-delay:-10s;"></div>
-          <!-- Mascots -->
-          <div class="mascot-statue" style="bottom:8%;left:3%;">🧑‍🔬</div>
-          <div class="mascot-statue" style="bottom:5%;right:5%;animation-delay:-1s;">📊</div>
-          <div class="mascot-statue" style="top:6%;left:12%;animation-delay:-2s;">🎲</div>
+          <!-- Statskeeter mascots -->
+          <div class="mascot" style="bottom:7%;left:2.5%;">
+            <div class="mascot-bubble">"Probability says... there's a chance!"</div>
+            <div class="mascot-badge">🎲</div>
+            <div class="mascot-name">Probability Expert</div>
+          </div>
+          <div class="mascot" style="bottom:5%;right:3%;animation-delay:0s;">
+            <div class="mascot-bubble">"Don't worry, I'm statistically significant."</div>
+            <div class="mascot-badge" style="animation-delay:-1.5s;">🔍</div>
+            <div class="mascot-name">Data Detective</div>
+          </div>
+          <div class="mascot" style="top:9%;right:12%;">
+            <div class="mascot-bubble">"Correlation isn't dating—it doesn't mean causation."</div>
+            <div class="mascot-badge" style="animation-delay:-2.5s;">📊</div>
+            <div class="mascot-name">Graph Master</div>
+          </div>
         </div>
         <div class="slide-content title-slide">
           <div class="hero-panel">
             <div class="course-label">The Three Statskeeters Present</div>
             <h1>Events &amp; Probability</h1>
             <div class="divider"></div>
-            <p class="subtitle">Definitions &bull; Examples &bull; Exercises &bull; Assignment</p>
+            <p class="subtitle">Definitions <span class="sep">•</span> Examples <span class="sep">•</span> Exercises <span class="sep">•</span> Assignment</p>
             <div class="title-details">
               <div class="detail-item course-item">
-                <span class="detail-label">Course</span>
+                <span class="detail-label">📚 Course</span>
                 <span class="detail-value">Advance Statistics and Probability</span>
               </div>
               <div class="detail-item topic-item">
-                <span class="detail-label">Topic</span>
+                <span class="detail-label">🎯 Topic</span>
                 <span class="detail-value">Events and Probability</span>
               </div>
               <div class="detail-item reporters-item">
-                <span class="detail-label">Reporters</span>
+                <span class="detail-label">👥 Reporters</span>
                 <span class="detail-value">Merry Jay Tumulak, Junna Dag-uman, Nathaniel Rodrigo</span>
               </div>
               <div class="detail-item section-item">
-                <span class="detail-label">Section</span>
+                <span class="detail-label">🎓 Section</span>
                 <span class="detail-value">33</span>
               </div>
               <div class="detail-item date-item">
-                <span class="detail-label">Date</span>
+                <span class="detail-label">📅 Date</span>
                 <span class="detail-value">July 26, 2026</span>
               </div>
             </div>
+            <button class="mission-btn" id="beginMission" type="button"><span>🚀</span> Begin the Mission</button>
           </div>
         </div>
       </section>
@@ -1052,6 +1290,7 @@
           <div class="mascot-statue" style="bottom:10%;left:8%;font-size:2.2em;">🧑‍🔬</div>
           <div class="mascot-statue" style="bottom:8%;right:10%;font-size:2.2em;animation-delay:-1.5s;">📊</div>
           <div class="mascot-statue" style="top:20%;right:15%;font-size:2em;animation-delay:-0.8s;">🎲</div>
+          <div class="joke" style="bottom:12%;left:6%;--joke-rot:-3deg;animation-delay:-4s;">"Mean isn't rude... it's just average."</div>
         </div>
         <div class="slide-content end-slide">
           <h1>Thank You</h1>
@@ -1097,6 +1336,75 @@
     window.addEventListener('resize', function () {
       if (window.Reveal && Reveal.isReady()) Reveal.configure(slideAspect());
     });
+
+    // ============ FLOATING NAVBAR ============
+    const navSections = ['home', 'lessons', 'lessons', 'lessons', 'exercises', 'exercises', 'exercises', 'exercises', 'exercises', 'assignment', 'assignment', ''];
+    const navItems = Array.from(document.querySelectorAll('#glass-nav .nav-item'));
+
+    function setActiveNav(section) {
+      navItems.forEach(item => item.classList.toggle('active', item.dataset.section === section));
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const target = navSections.findIndex(s => s === item.dataset.section);
+        if (target >= 0 && Reveal.isReady()) Reveal.slide(target);
+      });
+    });
+
+    // ============ MISSION BUTTON ============
+    document.getElementById('beginMission').addEventListener('click', () => {
+      if (Reveal.isReady()) Reveal.slide(1);
+    });
+
+    // ============ HERO MASCOT SPEECH BUBBLES ============
+    (function cycleHeroBubbles() {
+      const bubbles = document.querySelectorAll('.mascot-bubble');
+      let idx = 0;
+      function showNext() {
+        if (!bubbles.length) return;
+        bubbles.forEach(b => b.classList.remove('show'));
+        bubbles[idx % bubbles.length].classList.add('show');
+        idx++;
+      }
+      showNext();
+      setInterval(showNext, 4200);
+    })();
+
+    // ============ MOUSE PARALLAX ============
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!window.matchMedia('(hover: hover)').matches) return;
+      const layers = document.querySelectorAll('.blob, .float-icon, .particle, .slide-bg .doodle');
+      let raf = null;
+      document.addEventListener('mousemove', (e) => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          const dx = (e.clientX / window.innerWidth - 0.5) * 2;
+          const dy = (e.clientY / window.innerHeight - 0.5) * 2;
+          layers.forEach((el, i) => {
+            const depth = 6 + (i % 5) * 3;
+            el.style.translate = `${(-dx * depth).toFixed(1)}px ${(-dy * depth).toFixed(1)}px`;
+          });
+          raf = null;
+        });
+      });
+    })();
+
+    // ============ CARD TILT ============
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!window.matchMedia('(hover: hover)').matches) return;
+      document.querySelectorAll('.card, .detail-item').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform = `perspective(800px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 5).toFixed(2)}deg) translateY(-3px)`;
+        });
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      });
+    })();
 
     // ============ ACHIEVEMENT SYSTEM ============
     const achievements = [
@@ -1166,6 +1474,7 @@
     Reveal.on('slidechanged', event => {
       const index = event.indexh;
       showAchievement(index);
+      setActiveNav(navSections[index] || '');
       setTimeout(showSpeechBubble, 2000);
     });
 
@@ -1179,7 +1488,7 @@
     });
 
     function launchConfetti() {
-      const colors = ['#4CAF50', '#F57C00', '#FFB74D', '#1E7D32', '#81C784', '#FFCC80'];
+      const colors = ['#1E8449', '#F39C12', '#F5B041', '#A5D6A7', '#145A32', '#FFD54F'];
       for (let i = 0; i < 80; i++) {
         const piece = document.createElement('div');
         piece.className = 'confetti-piece';
