@@ -1069,7 +1069,12 @@
   <!-- ============ SCRIPTS ============ -->
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.5/dist/reveal.js"></script>
   <script>
-    Reveal.initialize({
+    function slideAspect() {
+      var baseHeight = 660;
+      var aspect = window.innerWidth / window.innerHeight;
+      return { width: Math.round(baseHeight * aspect), height: baseHeight, margin: 0 };
+    }
+    Reveal.initialize(Object.assign({
       controls: true,
       controlsLayout: 'bottom-right',
       controlsBackArrows: 'visible',
@@ -1080,9 +1085,6 @@
       transitionSpeed: 'fast',
       backgroundTransition: 'fade',
       scrollActivation: true,
-      width: 1100,
-      height: 660,
-      margin: 0.02,
       slideNumber: 'c/t',
       keyboard: true,
       touch: true,
@@ -1090,6 +1092,9 @@
       autoAnimate: true,
       autoAnimateEasing: 'ease-out',
       autoAnimateDuration: 0.8,
+    }, slideAspect()));
+    window.addEventListener('resize', function () {
+      if (window.Reveal && Reveal.isReady()) Reveal.configure(slideAspect());
     });
 
     // ============ ACHIEVEMENT SYSTEM ============
