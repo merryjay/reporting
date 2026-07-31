@@ -40,7 +40,7 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-dark);
+      background: linear-gradient(150deg, #064E3B 0%, #059669 38%, #047857 62%, #065F46 100%);
       color: var(--text);
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
@@ -96,12 +96,12 @@
     #bg-overlay {
       position: fixed; inset: 0; z-index: 0;
       pointer-events: none;
-      background: linear-gradient(165deg, rgba(5,24,17,0.66) 0%, rgba(7,38,24,0.48) 50%, rgba(5,30,19,0.72) 100%);
+      background: linear-gradient(165deg, rgba(4,42,30,0.42) 0%, rgba(4,52,34,0.25) 50%, rgba(4,46,31,0.5) 100%);
     }
 
     .blob {
       position: absolute; border-radius: 50%;
-      filter: blur(80px); opacity: 0.1;
+      filter: blur(80px); opacity: 0.14;
       animation: blobMove 25s ease-in-out infinite alternate;
     }
     .blob:nth-child(1) {
