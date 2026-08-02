@@ -1332,7 +1332,6 @@
       transitionSpeed: 'fast',
       backgroundTransition: 'fade',
       scrollActivationWidth: null,
-      mouseWheel: true,
       slideNumber: 'c/t',
       keyboard: true,
       touch: true,
@@ -1344,6 +1343,40 @@
     window.addEventListener('resize', function () {
       if (window.Reveal && Reveal.isReady()) Reveal.configure(slideAspect());
     });
+
+    // ============ CONTROLLED WHEEL NAVIGATION ============
+    (function () {
+      var threshold = 60;
+      var cooldown = 900;
+      var acc = 0;
+      var lastNav = 0;
+
+      function canScrollInside(target) {
+        var node = target;
+        while (node && node !== document) {
+          if (node.scrollHeight > node.clientHeight + 8) return true;
+          node = node.parentElement;
+        }
+        return false;
+      }
+
+      window.addEventListener('wheel', function (e) {
+        if (typeof Reveal === 'undefined' || !Reveal.isReady()) return;
+        if (canScrollInside(e.target)) return;
+        var now = Date.now();
+        if (now - lastNav < cooldown) {
+          e.preventDefault();
+          return;
+        }
+        acc += Math.abs(e.deltaY);
+        if (acc >= threshold) {
+          acc = 0;
+          lastNav = now;
+          if (e.deltaY > 0) Reveal.next(); else Reveal.prev();
+        }
+        e.preventDefault();
+      }, { passive: false });
+    })();
 
     // ============ FLOATING NAVBAR ============
     const navSections = ['home', 'lessons', 'lessons', 'lessons', 'exercises', 'exercises', 'exercises', 'exercises', 'exercises', 'assignment', 'assignment', ''];
